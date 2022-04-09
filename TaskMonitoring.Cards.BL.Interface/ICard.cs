@@ -8,9 +8,9 @@ namespace TaskMonitoring.Cards.BL.Interface
 		public void ChangeDescription(string newDescription);
 		public void ChangeTitle(string newTitle);
 		public void ChangeStatus(Statuses newStatus);
-		public ITask AddTask(int taskId, string taskTitle, string taskDescription);
+		public ICardTask AddTask(int taskId, string taskTitle, string taskDescription);
 		public void DeleteTask(int taskId);
-		public ITask UpdateTask(int taskId, string taskTitle = null, string taskDescription = null);
-		public ITask GetTaskById(int taskId);
+		public ICardTask UpdateTask(int taskId, string taskTitle = null, string taskDescription = null);
+		public ICardTask GetTaskById(int taskId);
 	}
 }

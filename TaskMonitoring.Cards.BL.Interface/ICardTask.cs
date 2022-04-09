@@ -1,6 +1,6 @@
 ﻿namespace TaskMonitoring.Cards.BL.Interface
 {
-	public interface ITask
+	public interface ICardTask
 	{
 		public string Title { get; }
 		public string Description { get; }

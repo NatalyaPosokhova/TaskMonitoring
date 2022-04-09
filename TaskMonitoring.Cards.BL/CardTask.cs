@@ -3,12 +3,12 @@ using TaskMonitoring.Cards.BL.Interface;
 
 namespace TaskMonitoring.Cards.BL
 {
-	public class Task : ITask
+	public class CardTask : ICardTask
 	{
 		public string Title { get; private set; }
 		public string Description { get; private set; }
 		private int _id;
-		public Task(int id, string title, string description)
+		public CardTask(int id, string title, string description)
 		{
 			_id = id;
 			Title = title;
@@ -34,7 +34,7 @@ namespace TaskMonitoring.Cards.BL
 			}
 			else
 			{
-				Task t = (Task)task1;
+				CardTask t = (CardTask)task1;
 				return (_id == t._id) && (Title == t.Title) && (Description == t.Description);
 			}
 		}
