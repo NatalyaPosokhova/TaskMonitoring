@@ -22,9 +22,8 @@ namespace TaskMonitoring.Cards.UnitTests
 		[SetUp]
 		public void Setup()
 		{
-			_taskService = new TaskService();
-			
-			_dataAccess = Substitute.For<IDataAccess>();			
+			_dataAccess = Substitute.For<IDataAccess>();
+			_taskService = new TaskService(_dataAccess);
 		}
 
 		[TearDown]
@@ -47,7 +46,6 @@ namespace TaskMonitoring.Cards.UnitTests
 
 			long expectedTaskId = 1;
 			_dataAccess.AddTask(_userId, expTask).Returns(expectedTaskId);
-			_dataAccess.GetTaskById(expectedTaskId).Returns(expTask);
 
 			//act
 			var actTask = _taskService.CreateTask(_userId, expTask);
@@ -74,7 +72,8 @@ namespace TaskMonitoring.Cards.UnitTests
 			_dataAccess.Received().DeleteTask(actTask.Id);
 
 			//assert
-			Assert.IsNull(_taskService.GetAllTasks(_userId));
+			_dataAccess.GetAllTasksByUserId(_userId).Returns(new List<Task> {});
+			Assert.IsEmpty(_taskService.GetAllTasks(_userId));
 		}
 
 		[Test]
@@ -87,7 +86,7 @@ namespace TaskMonitoring.Cards.UnitTests
 
 			//act
 			//assert
-			_dataAccess.Received().DeleteTask(taskId);
+			//_dataAccess.Received().DeleteTask(taskId);
 			Assert.Throws<TaskNotFoundException>(() => _taskService.DeleteTaskById(taskId));
 		}
 	}

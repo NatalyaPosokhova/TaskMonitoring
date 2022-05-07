@@ -17,4 +17,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TaskMonitoring.Cards.DataAccess.Interface\TaskMonitoring.Cards.DataAccess.Interface.csproj" />
+    <ProjectReference Include="..\TaskMonitoring.Cards.DataAccess\TaskMonitoring.Cards.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

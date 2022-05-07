@@ -14,6 +14,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TaskMonitoring.Cards.DataAccess;
+using TaskMonitoring.Cards.DataAccess.Interface;
 
 namespace TaskMonitoring
 {
@@ -37,6 +39,8 @@ namespace TaskMonitoring
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "TaskMonitoring", Version = "v1" });
 			});
+
+			services.AddSingleton<IDataAccess>(new DataAccess());
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
