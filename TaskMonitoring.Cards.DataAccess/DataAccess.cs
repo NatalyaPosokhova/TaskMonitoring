@@ -27,6 +27,11 @@ namespace TaskMonitoring.Cards.DataAccess
 			throw new NotImplementedException();
 		}
 
+		public Task GetTaskById(long taskId)
+		{
+			throw new NotImplementedException();
+		}
+
 		public void UpdateTask(Task task)
 		{
 			throw new NotImplementedException();
