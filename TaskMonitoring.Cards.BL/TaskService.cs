@@ -23,7 +23,7 @@ namespace TaskMonitoring.Cards.BL
 
 		public void DeleteTaskById(long taskId)
 		{
-			throw new NotImplementedException();
+			_data.DeleteTask(taskId);
 		}
 
 		public IEnumerable<Task> GetAllTasks(long userId)
