@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TaskMonitoring.Cards.BL.Interface\TaskMonitoring.Cards.BL.Interface.csproj" />
+    <ProjectReference Include="..\TaskMonitoring.Cards.DataAccess.Interface\TaskMonitoring.Cards.DataAccess.Interface.csproj" />
   </ItemGroup>
 
 </Project>
