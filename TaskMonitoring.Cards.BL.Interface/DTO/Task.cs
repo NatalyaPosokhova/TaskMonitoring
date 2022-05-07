@@ -24,7 +24,7 @@ namespace TaskMonitoring.Cards.BL.Interface.DTO
 			else
 			{
 				Task task = (Task)obj;
-				return (Id == task.Id) && (Title == task.Title) && (Summary == task.Summary);
+				return (Id == task.Id) && (Title == task.Title) && (Comments == task.Comments) && (Summary == task.Summary);
 			}
 		}
 	}
