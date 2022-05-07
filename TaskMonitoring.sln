@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Cards.BL.Int
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Cards.BL", "TaskMonitoring.Cards.BL\TaskMonitoring.Cards.BL.csproj", "{DA5D17C3-09CE-4337-A949-FFE3C845AAF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Cards.DataAccess.Interface", "TaskMonitoring.Cards.DataAccess.Interface\TaskMonitoring.Cards.DataAccess.Interface.csproj", "{3F16D0D6-CC0A-4796-8655-E5C66EBB547B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Cards.DataAccess.Interface", "TaskMonitoring.Cards.DataAccess.Interface\TaskMonitoring.Cards.DataAccess.Interface.csproj", "{3F16D0D6-CC0A-4796-8655-E5C66EBB547B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Cards.DataAccess", "TaskMonitoring.Cards.DataAccess\TaskMonitoring.Cards.DataAccess.csproj", "{1C88D8D0-48EC-4590-B487-4A4A71229548}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3F16D0D6-CC0A-4796-8655-E5C66EBB547B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F16D0D6-CC0A-4796-8655-E5C66EBB547B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F16D0D6-CC0A-4796-8655-E5C66EBB547B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C88D8D0-48EC-4590-B487-4A4A71229548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C88D8D0-48EC-4590-B487-4A4A71229548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C88D8D0-48EC-4590-B487-4A4A71229548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C88D8D0-48EC-4590-B487-4A4A71229548}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
