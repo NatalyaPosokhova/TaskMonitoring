@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TaskMonitoring.Cards.BL.Interface.DTO;
 using TaskMonitoring.Cards.BL.Interface;
 
@@ -14,7 +12,7 @@ namespace TaskMonitoring.Cards.BL
 			throw new NotImplementedException();
 		}
 
-		public Task CreateTask(long userId)
+		public Task CreateTask(long userId, Task task)
 		{
 			throw new NotImplementedException();
 		}
