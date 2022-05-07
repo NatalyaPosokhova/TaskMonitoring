@@ -86,8 +86,45 @@ namespace TaskMonitoring.Cards.UnitTests
 
 			//act
 			//assert
-			//_dataAccess.Received().DeleteTask(taskId);
 			Assert.Throws<TaskNotFoundException>(() => _taskService.DeleteTaskById(taskId));
+		}
+
+		[Test]
+		public void AddCommentToTaskShouldBeSuccess()
+		{
+			//arrange
+			Task task = new Task
+			{
+				Comments = new List<string> { "comment1" },
+				Summary = "summary",
+				Title = "title"
+			};
+			long taskId = 123;
+			string comment2 = "comment2";
+			_dataAccess.AddTask(_userId, task).Returns(taskId);
+			_taskService.CreateTask(_userId, task);
+
+			//act
+			_taskService.AddComment(taskId, comment2);
+			_dataAccess.Received().AddComment(taskId, comment2);
+
+			//assert
+			task.Comments.ToList().Add(comment2);
+			_dataAccess.GetAllTasksByUserId(_userId).Returns(new List<Task> { task });
+			Assert.IsTrue(_taskService.GetAllTasks(_userId)?.First()?.Comments?.Any(comment => comment == comment2) ?? false);
+		}
+
+		[Test]
+		public void AddCommentToNotExistedTaskShouldBeException()
+		{
+			//arrange
+			long taskId = 12;
+			_dataAccess.When(x => x.AddComment(taskId, "test"))
+				.Do(x => { throw new CannotAddCommentException(""); });
+
+			//act
+			//assert
+			Assert.Throws<TaskNotFoundException>(() => _taskService.AddComment(taskId, "test"));
 		}
 	}
 }

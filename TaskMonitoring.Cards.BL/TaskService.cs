@@ -18,7 +18,14 @@ namespace TaskMonitoring.Cards.BL
 
 		public void AddComment(long taskId, string comment)
 		{
-			_data.AddComment(taskId, comment);
+			try
+			{
+				_data.AddComment(taskId, comment);
+			}
+			catch (CannotAddCommentException ex)
+			{
+				throw new TaskNotFoundException("Task is absent in database.", ex);
+			}
 		}
 
 		public Task CreateTask(long userId, Task task)
@@ -42,6 +49,7 @@ namespace TaskMonitoring.Cards.BL
 
 		public IEnumerable<Task> GetAllTasks(long userId)
 		{
+			var test = _data.GetAllTasksByUserId(userId);
 			return _data.GetAllTasksByUserId(userId);
 		}
 	}
