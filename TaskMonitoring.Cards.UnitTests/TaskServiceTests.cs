@@ -47,9 +47,10 @@ namespace TaskMonitoring.Cards.UnitTests
 
 			long expectedTaskId = 1;
 			_dataAccess.AddTask(_userId, expTask).Returns(expectedTaskId);
+			_dataAccess.GetTaskById(expectedTaskId).Returns(expTask);
 
 			//act
-			 var actTask = _taskService.CreateTask(_userId, expTask);
+			var actTask = _taskService.CreateTask(_userId, expTask);
 
 			//assert
 			Assert.AreEqual(expectedTaskId, actTask.Id);
@@ -88,28 +89,6 @@ namespace TaskMonitoring.Cards.UnitTests
 			//assert
 			_dataAccess.Received().DeleteTask(taskId);
 			Assert.Throws<TaskNotFoundException>(() => _taskService.DeleteTaskById(taskId));
-		}
-
-		[Test]
-		public void SaveTaskShouldBeSuccess()
-		{
-			//arrange
-			string expectedTitle = "345";
-			Task expTask = new Task
-			{
-				Comments = new List<string> { "comment1" },
-				Summary = "summary",
-				Title = "title"
-			};
-			Task actTask = _taskService.CreateTask(_userId, expTask);
-
-			//act
-			actTask.Title = expectedTitle;
-			_taskService.SaveTask(actTask);
-			_dataAccess.Received().AddTask(_userId, expTask);
-
-			//assert
-			Assert.AreEqual(expTask, _taskService.GetAllTasks(_userId)?.First());
 		}
 	}
 }

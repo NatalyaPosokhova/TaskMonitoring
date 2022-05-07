@@ -9,6 +9,10 @@ namespace TaskMonitoring.Cards.BL
 	public class TaskService : ITaskService
 	{
 		private IDataAccess _data;
+		public TaskService()
+		{
+			_data = new TaskMonitoring.Cards.DataAccess.DataAccess();
+		}
 
 		public void AddComment(long taskId, string comment)
 		{
@@ -28,12 +32,8 @@ namespace TaskMonitoring.Cards.BL
 
 		public IEnumerable<Task> GetAllTasks(long userId)
 		{
-			throw new NotImplementedException();
+			return _data.GetAllTasksByUserId(userId);
 		}
 
-		public void SaveTask(Task task)
-		{
-			throw new NotImplementedException();
-		}
 	}
 }
