@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace TaskMonitoring.Cards.BL.Interface.DTO
 {
-	public class Task
+	public class TaskDTO
 	{
 		public string Title { get; set; }
 		public string Summary { get; set; }
 		public long Id { get; set; }
 
-		public IEnumerable<string> Comments { get; set; }
+		public IList<string> Comments { get; set; }
 
 		public override bool Equals(object obj)
 		{
@@ -23,7 +23,7 @@ namespace TaskMonitoring.Cards.BL.Interface.DTO
 			}
 			else
 			{
-				Task task = (Task)obj;
+				TaskDTO task = (TaskDTO)obj;
 				return (Id == task.Id) && (Title == task.Title) && (Comments == task.Comments) && (Summary == task.Summary);
 			}
 		}

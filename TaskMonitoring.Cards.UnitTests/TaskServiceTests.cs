@@ -37,18 +37,25 @@ namespace TaskMonitoring.Cards.UnitTests
 		public void CreateTaskShouldBeSuccess()
 		{
 			//arrange
-			Task expTask = new Task 
+			TaskDataAccessDTO expTaskDataAccess = new TaskDataAccessDTO
 			{ 
 				Comments =new List<string>{ "comment1" },
 				Summary = "summary",
 				Title = "title"
 			};
 
+			TaskDTO expTask = new TaskDTO
+			{
+				Comments = new List<string> { "comment1" },
+				Summary = "summary",
+				Title = "title"
+			};
+
 			long expectedTaskId = 1;
-			_dataAccess.AddTask(_userId, expTask).Returns(expectedTaskId);
 
 			//act
 			var actTask = _taskService.CreateTask(_userId, expTask);
+			_dataAccess.AddTask(_userId, expTaskDataAccess).Returns(expectedTaskId);
 
 			//assert
 			Assert.AreEqual(expectedTaskId, actTask.Id);
@@ -58,21 +65,21 @@ namespace TaskMonitoring.Cards.UnitTests
 		public void DeleteTaskShouldBeSuccess()
 		{
 			//arrange
-			Task expTask = new Task
+			TaskDTO expTask = new TaskDTO
 			{
 				Comments = new List<string> { "comment1" },
 				Summary = "summary",
 				Title = "title"
 			};
 
-			var actTask = _taskService.CreateTask(_userId, expTask);
+			var task = _taskService.CreateTask(_userId, expTask);
 
 			//act
-			_taskService.DeleteTaskById(actTask.Id);
-			_dataAccess.Received().DeleteTask(actTask.Id);
+			_taskService.DeleteTaskById(task.Id);
+			_dataAccess.Received().DeleteTask(task.Id);
 
 			//assert
-			_dataAccess.GetAllTasksByUserId(_userId).Returns(new List<Task> {});
+			_dataAccess.GetAllTasksByUserId(_userId).Returns(new List<TaskDataAccessDTO> {});
 			Assert.IsEmpty(_taskService.GetAllTasks(_userId));
 		}
 
@@ -93,15 +100,23 @@ namespace TaskMonitoring.Cards.UnitTests
 		public void AddCommentToTaskShouldBeSuccess()
 		{
 			//arrange
-			Task task = new Task
+			TaskDTO task = new TaskDTO
 			{
 				Comments = new List<string> { "comment1" },
 				Summary = "summary",
 				Title = "title"
 			};
+
+			TaskDataAccessDTO taskDataAccess = new TaskDataAccessDTO
+			{
+				Comments = new List<string> { "comment1", "comment2" },
+				Summary = "summary",
+				Title = "title"
+			};
+
 			long taskId = 123;
 			string comment2 = "comment2";
-			_dataAccess.AddTask(_userId, task).Returns(taskId);
+			_dataAccess.AddTask(_userId, taskDataAccess).Returns(taskId);
 			_taskService.CreateTask(_userId, task);
 
 			//act
@@ -109,8 +124,7 @@ namespace TaskMonitoring.Cards.UnitTests
 			_dataAccess.Received().AddComment(taskId, comment2);
 
 			//assert
-			task.Comments.ToList().Add(comment2);
-			_dataAccess.GetAllTasksByUserId(_userId).Returns(new List<Task> { task });
+			_dataAccess.GetAllTasksByUserId(_userId).Returns(new List<TaskDataAccessDTO> { taskDataAccess });
 			Assert.IsTrue(_taskService.GetAllTasks(_userId)?.First()?.Comments?.Any(comment => comment == comment2) ?? false);
 		}
 

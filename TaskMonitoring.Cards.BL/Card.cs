@@ -10,14 +10,14 @@ namespace TaskMonitoring.Cards.BL
 		public string Title { get; private set; }
 		public string Description { get; private set; }
 		public Statuses Status { get; private set; }
-		private List<Task> _tasks;
+		private List<TaskDTO> _tasks;
 
 		public Card(string title, string description)
 		{
 			Title = title;
 			Description = description;
 			Status = Statuses.Propose;
-			_tasks = new List<Task>();
+			_tasks = new List<TaskDTO>();
 		}
 		public void ChangeDescription(string newDescription)
 		{
@@ -34,7 +34,7 @@ namespace TaskMonitoring.Cards.BL
 			throw new NotImplementedException();
 		}
 
-		public Task AddTask(int taskId, string taskTitle, string taskDescription)
+		public TaskDTO AddTask(int taskId, string taskTitle, string taskDescription)
 		{
 			throw new NotImplementedException();
 		}
@@ -44,12 +44,12 @@ namespace TaskMonitoring.Cards.BL
 			throw new NotImplementedException();
 		}
 
-		public Task UpdateTask(int taskId, string taskTitle = null, string taskDescription = null)
+		public TaskDTO UpdateTask(int taskId, string taskTitle = null, string taskDescription = null)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task GetTaskById(int taskId)
+		public TaskDTO GetTaskById(int taskId)
 		{
 			throw new NotImplementedException();
 		}

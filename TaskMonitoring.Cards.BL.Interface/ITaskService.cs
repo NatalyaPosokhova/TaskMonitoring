@@ -8,9 +8,9 @@ namespace TaskMonitoring.Cards.BL.Interface
 {
 	public interface ITaskService
 	{
-		public Task CreateTask(long userId, Task task);
+		public TaskDTO CreateTask(long userId, TaskDTO task);
 		public void DeleteTaskById(long taskId);
 		public void AddComment(long taskId, string comment);
-		public IEnumerable<Task> GetAllTasks(long userId);
+		public IEnumerable<TaskDTO> GetAllTasks(long userId);
 	}
 }

@@ -19,5 +19,4 @@
     <ProjectReference Include="..\TaskMonitoring.Cards.BL\TaskMonitoring.Cards.BL.csproj" />
     <ProjectReference Include="..\TaskMonitoring.Cards.DataAccess.Interface\TaskMonitoring.Cards.DataAccess.Interface.csproj" />
   </ItemGroup>
-
 </Project>

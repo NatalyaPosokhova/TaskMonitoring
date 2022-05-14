@@ -5,6 +5,8 @@ using TaskMonitoring.Cards.BL.Interface;
 using TaskMonitoring.Cards.DataAccess.Interface;
 using TaskMonitoring.Cards.DataAccess.Interface.Exceptions;
 using TaskMonitoring.Cards.BL.Exceptions;
+using AutoMapper;
+using System.Linq;
 
 namespace TaskMonitoring.Cards.BL
 {
@@ -28,9 +30,9 @@ namespace TaskMonitoring.Cards.BL
 			}
 		}
 
-		public Task CreateTask(long userId, Task task)
+		public TaskDTO CreateTask(long userId, TaskDTO task)
 		{
-			var taskId = _data.AddTask(userId, task);
+			var taskId = _data.AddTask(userId, MapToTask(task));
 			task.Id = taskId;
 			return task;
 		}
@@ -39,7 +41,7 @@ namespace TaskMonitoring.Cards.BL
 		{
 			try
 			{
-				_data.DeleteTask(taskId);
+				_data?.DeleteTask(taskId);
 			}
 			catch (CannotDeleteTaskException ex)
 			{
@@ -47,10 +49,24 @@ namespace TaskMonitoring.Cards.BL
 			}
 		}
 
-		public IEnumerable<Task> GetAllTasks(long userId)
+		public IEnumerable<TaskDTO> GetAllTasks(long userId)
 		{
-			var test = _data.GetAllTasksByUserId(userId);
-			return _data.GetAllTasksByUserId(userId);
+			var test = _data?.GetAllTasksByUserId(userId)?.Select(task => MapToTaskDataAccess(task));
+			return _data?.GetAllTasksByUserId(userId)?.Select(task => MapToTaskDataAccess(task));
+		}
+
+		private TaskDTO MapToTaskDataAccess(TaskDataAccessDTO taskDataAccessDTO)
+		{
+			var config = new MapperConfiguration(cfg => cfg.CreateMap<TaskDataAccessDTO, TaskDTO>());
+			var mapper = new Mapper(config);
+			return mapper.Map<TaskDTO>(taskDataAccessDTO);
+		}
+
+		private TaskDataAccessDTO MapToTask(TaskDTO task)
+		{
+			var config = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskDataAccessDTO>());
+			var mapper = new Mapper(config);
+			return mapper.Map<TaskDataAccessDTO>(task);
 		}
 	}
 }

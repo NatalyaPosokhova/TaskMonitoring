@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TaskMonitoring.Cards.BL.Interface.DTO;
 using TaskMonitoring.Cards.DataAccess.Interface;
 
 namespace TaskMonitoring.Cards.DataAccess
@@ -12,7 +11,7 @@ namespace TaskMonitoring.Cards.DataAccess
 			throw new NotImplementedException();
 		}
 
-		public long AddTask(long userId, Task task)
+		public long AddTask(long userId, TaskDataAccessDTO task)
 		{
 			throw new NotImplementedException();
 		}
@@ -22,17 +21,17 @@ namespace TaskMonitoring.Cards.DataAccess
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<Task> GetAllTasksByUserId(long userId)
+		public IEnumerable<TaskDataAccessDTO> GetAllTasksByUserId(long userId)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task GetTaskById(long taskId)
+		public TaskDataAccessDTO GetTaskById(long taskId)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void UpdateTask(Task task)
+		public void UpdateTask(TaskDataAccessDTO task)
 		{
 			throw new NotImplementedException();
 		}
