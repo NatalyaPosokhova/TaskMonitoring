@@ -52,12 +52,14 @@ namespace TaskMonitoring.Cards.UnitTests
 			};
 
 			long expectedTaskId = 1;
-
+			//_dataAccess.AddTask(Arg.Any<long>(), Arg.Any<TaskDataAccessDTO>()).Returns(expectedTaskId);
+			_dataAccess.AddTask(_userId, expTaskDataAccess).Returns(expectedTaskId);
 			//act
 			var actTask = _taskService.CreateTask(_userId, expTask);
-			_dataAccess.AddTask(_userId, expTaskDataAccess).Returns(expectedTaskId);
+			
 
 			//assert
+			//_dataAccess.Received().AddTask(_userId, expTaskDataAccess);
 			Assert.AreEqual(expectedTaskId, actTask.Id);
 		}
 
