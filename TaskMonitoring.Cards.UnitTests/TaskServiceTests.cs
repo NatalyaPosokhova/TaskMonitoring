@@ -52,14 +52,12 @@ namespace TaskMonitoring.Cards.UnitTests
 			};
 
 			long expectedTaskId = 1;
-			//_dataAccess.AddTask(Arg.Any<long>(), Arg.Any<TaskDataAccessDTO>()).Returns(expectedTaskId);
 			_dataAccess.AddTask(_userId, expTaskDataAccess).Returns(expectedTaskId);
+
 			//act
 			var actTask = _taskService.CreateTask(_userId, expTask);
-			
 
 			//assert
-			//_dataAccess.Received().AddTask(_userId, expTaskDataAccess);
 			Assert.AreEqual(expectedTaskId, actTask.Id);
 		}
 
@@ -67,22 +65,13 @@ namespace TaskMonitoring.Cards.UnitTests
 		public void DeleteTaskShouldBeSuccess()
 		{
 			//arrange
-			TaskDTO expTask = new TaskDTO
-			{
-				Comments = new List<string> { "comment1" },
-				Summary = "summary",
-				Title = "title"
-			};
-
-			var task = _taskService.CreateTask(_userId, expTask);
+			var taskId = 111;
 
 			//act
-			_taskService.DeleteTaskById(task.Id);
-			_dataAccess.Received().DeleteTask(task.Id);
+			_taskService.DeleteTaskById(taskId);
 
 			//assert
-			_dataAccess.GetAllTasksByUserId(_userId).Returns(new List<TaskDataAccessDTO> {});
-			Assert.IsEmpty(_taskService.GetAllTasks(_userId));
+			_dataAccess.Received().DeleteTask(taskId);
 		}
 
 		[Test]
