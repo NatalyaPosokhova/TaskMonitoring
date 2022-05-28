@@ -91,32 +91,14 @@ namespace TaskMonitoring.Cards.UnitTests
 		public void AddCommentToTaskShouldBeSuccess()
 		{
 			//arrange
-			TaskDTO task = new TaskDTO
-			{
-				Comments = new List<string> { "comment1" },
-				Summary = "summary",
-				Title = "title"
-			};
-
-			TaskDataAccessDTO taskDataAccess = new TaskDataAccessDTO
-			{
-				Comments = new List<string> { "comment1", "comment2" },
-				Summary = "summary",
-				Title = "title"
-			};
-
 			long taskId = 123;
 			string comment2 = "comment2";
-			_dataAccess.AddTask(_userId, taskDataAccess).Returns(taskId);
-			_taskService.CreateTask(_userId, task);
 
 			//act
 			_taskService.AddComment(taskId, comment2);
-			_dataAccess.Received().AddComment(taskId, comment2);
 
 			//assert
-			_dataAccess.GetAllTasksByUserId(_userId).Returns(new List<TaskDataAccessDTO> { taskDataAccess });
-			Assert.IsTrue(_taskService.GetAllTasks(_userId)?.First()?.Comments?.Any(comment => comment == comment2) ?? false);
+			_dataAccess.Received().AddComment(taskId, comment2);
 		}
 
 		[Test]
