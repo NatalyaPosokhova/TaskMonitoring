@@ -5,12 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Reflection;
 using TaskMonitoring.Cards.DataAccess;
+using Microsoft.Extensions.Logging;
 
 namespace TaskMonitoring.Bootsrap
 {
 	public static class Configurator
 	{
-		public static void ConfigureDatabase()
+		static readonly DbContextOptionsBuilder _optionsBuilder = new DbContextOptionsBuilder<TaskDbContext>();
+        public static void ConfigureDatabase()
 		{
             var builder = new ConfigurationBuilder();
             // установка пути к текущему каталогу
@@ -22,8 +24,12 @@ namespace TaskMonitoring.Bootsrap
 
             string connectionString = config.GetConnectionString("DefaultConnection");
 
-            var optionsBuilder = new DbContextOptionsBuilder<TaskDbContext>();
-            var options = optionsBuilder.UseNpgsql(connectionString).Options;
+            var options = _optionsBuilder.UseNpgsql(connectionString).Options;
+        }
+
+        public static void ConfigureLogging()
+        {
+            _optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
         }
     }
 }

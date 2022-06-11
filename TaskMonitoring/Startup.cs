@@ -28,6 +28,8 @@ namespace TaskMonitoring
 
 			Bootsrap.Configurator.ConfigureDatabase();
 
+			Bootsrap.Configurator.ConfigureLogging();
+
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "TaskMonitoring", Version = "v1" });
