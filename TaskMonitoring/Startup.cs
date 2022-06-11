@@ -25,11 +25,14 @@ namespace TaskMonitoring
 				.AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
 
 			services.AddControllers();
+
+			Bootsrap.Configurator.ConfigureDatabase();
+
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "TaskMonitoring", Version = "v1" });
 			});
-
+			
 			Bootsrap.ApplicationBuilder.Build(services);
 		}
 
