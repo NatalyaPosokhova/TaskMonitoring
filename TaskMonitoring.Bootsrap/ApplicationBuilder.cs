@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using TaskMonitoring.Cards.BL;
+using TaskMonitoring.Cards.BL.Interface;
 using TaskMonitoring.Cards.DataAccess;
 using TaskMonitoring.Cards.DataAccess.Interface;
 
@@ -10,6 +12,8 @@ namespace TaskMonitoring.Bootsrap
 		public static void Build(IServiceCollection services)
 		{
 			services.AddTransient<IDataAccess, DataAccess>();
+			services.AddTransient<ITaskService, TaskService>();
+			services.AddScoped<ContextFactory>();
 		}
 	}
 }
