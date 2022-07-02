@@ -12,10 +12,6 @@ namespace TaskMonitoring.Cards.DataAccess
 		{
 		}
 
-		public TaskDbContext()
-		{
-		}
-
 		//public TaskDbContext() => Database.EnsureCreated();
 
 	}
