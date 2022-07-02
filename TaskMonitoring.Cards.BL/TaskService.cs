@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TaskMonitoring.Cards.BL.Interface.DTO;
 using TaskMonitoring.Cards.BL.Interface;
 using TaskMonitoring.Cards.DataAccess.Interface;
@@ -32,7 +31,7 @@ namespace TaskMonitoring.Cards.BL
 
 		public TaskDTO CreateTask(long userId, TaskDTO task)
 		{
-			var taskId = _data.AddTask(userId, MapToTask(task));
+			var taskId = _data.AddTask(userId, Util<TaskDTO, TaskDataAccessDTO>.MapFrom(task));
 			task.Id = taskId;
 			return task;
 		}
@@ -51,20 +50,8 @@ namespace TaskMonitoring.Cards.BL
 
 		public IEnumerable<TaskDTO> GetAllTasks(long userId)
 		{
-			var test = _data?.GetAllTasksByUserId(userId)?.Select(task => MapToTaskDataAccess(task));
-			return _data?.GetAllTasksByUserId(userId)?.Select(task => MapToTaskDataAccess(task));
-		}
-
-		private TaskDTO MapToTaskDataAccess(TaskDataAccessDTO taskDataAccessDTO)
-		{
-			var mapper = MapperFactory<TaskDataAccessDTO, TaskDTO>.CreateMapper();
-			return mapper.Map<TaskDTO>(taskDataAccessDTO);
-		}
-
-		private TaskDataAccessDTO MapToTask(TaskDTO task)
-		{
-			var mapper = MapperFactory<TaskDTO, TaskDataAccessDTO>.CreateMapper();
-			return mapper.Map<TaskDataAccessDTO>(task);
+			var test = _data?.GetAllTasksByUserId(userId)?.Select(task => Util<TaskDataAccessDTO, TaskDTO>.MapFrom(task));
+			return _data?.GetAllTasksByUserId(userId)?.Select(task => Util<TaskDataAccessDTO, TaskDTO>.MapFrom(task));
 		}
 	}
 }
