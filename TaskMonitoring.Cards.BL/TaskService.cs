@@ -5,8 +5,8 @@ using TaskMonitoring.Cards.BL.Interface;
 using TaskMonitoring.Cards.DataAccess.Interface;
 using TaskMonitoring.Cards.DataAccess.Interface.Exceptions;
 using TaskMonitoring.Cards.BL.Exceptions;
-using AutoMapper;
 using System.Linq;
+using TaskMonitoring.Utilities;
 
 namespace TaskMonitoring.Cards.BL
 {
@@ -57,15 +57,13 @@ namespace TaskMonitoring.Cards.BL
 
 		private TaskDTO MapToTaskDataAccess(TaskDataAccessDTO taskDataAccessDTO)
 		{
-			var config = new MapperConfiguration(cfg => cfg.CreateMap<TaskDataAccessDTO, TaskDTO>());
-			var mapper = new Mapper(config);
+			var mapper = MapperFactory<TaskDataAccessDTO, TaskDTO>.CreateMapper();
 			return mapper.Map<TaskDTO>(taskDataAccessDTO);
 		}
 
 		private TaskDataAccessDTO MapToTask(TaskDTO task)
 		{
-			var config = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskDataAccessDTO>());
-			var mapper = new Mapper(config);
+			var mapper = MapperFactory<TaskDTO, TaskDataAccessDTO>.CreateMapper();
 			return mapper.Map<TaskDataAccessDTO>(task);
 		}
 	}
