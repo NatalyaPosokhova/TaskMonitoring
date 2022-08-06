@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TaskMonitoring.Cards.DataAccess.Interface\TaskMonitoring.Cards.DataAccess.Interface.csproj" />
+    <ProjectReference Include="..\TaskMonitoring.Utils\TaskMonitoring.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
