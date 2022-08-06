@@ -17,7 +17,7 @@ namespace TaskMonitoring.Cards.DataAccess
             // получаем конфигурацию из файла appsettings.json
             ConfigurationBuilder builder = new ConfigurationBuilder();
 			builder.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
-            builder.AddJsonFile("appsettings.json");
+            builder.AddJsonFile(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/appsettings.json");
             IConfigurationRoot config = builder.Build();
 
             // получаем строку подключения из файла appsettings.json

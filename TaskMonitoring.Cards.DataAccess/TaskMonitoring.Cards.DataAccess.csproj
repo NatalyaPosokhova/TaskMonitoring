@@ -24,6 +24,9 @@
   <ItemGroup>
     <ProjectReference Include="..\TaskMonitoring.Cards.DataAccess.Interface\TaskMonitoring.Cards.DataAccess.Interface.csproj" />
     <ProjectReference Include="..\TaskMonitoring.Utils\TaskMonitoring.Utilities.csproj" />
+	<Content Update="..\TaskMonitoring.Bootsrap\appsettings.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
   </ItemGroup>
 
 </Project>
