@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskMonitoring.Cards.DataAccess.Interface.Exceptions
 {
-	public class CannotAddCommentException : Exception
+	public class CannotAddCommentException : DatabaseLayerException
 	{
 		public CannotAddCommentException(string message, Exception ex = null) : base(message, ex)
 		{

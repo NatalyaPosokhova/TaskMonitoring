@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TaskMonitoring.Cards.DataAccess.Interface.Exceptions
 {
-	public class CannotDeleteTaskException : DatabaseLayerException
+	public class DatabaseLayerException : Exception
 	{
-		public CannotDeleteTaskException(string message, Exception ex = null) : base(message, ex)
+		public DatabaseLayerException(string message, Exception ex = null) : base(message, ex)
 		{
 
 		}
