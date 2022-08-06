@@ -25,7 +25,7 @@ namespace TaskMonitoring.Cards.BL
 			}
 			catch (CannotAddCommentException ex)
 			{
-				throw new TaskNotFoundException("Task is absent in database.", ex);
+				throw new Exceptions.TaskNotFoundException("Task is absent in database.", ex);
 			}
 		}
 
@@ -45,7 +45,7 @@ namespace TaskMonitoring.Cards.BL
 			}
 			catch (CannotDeleteTaskException ex)
 			{
-				throw new TaskNotFoundException("Task is absent in database.", ex);
+				throw new Exceptions.TaskNotFoundException("Task is absent in database.", ex);
 			}
 		}
 

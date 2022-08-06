@@ -13,6 +13,4 @@ namespace TaskMonitoring.Cards.DataAccess.Interface.Exceptions
 
 		}
 	}
-	{
-	}
 }

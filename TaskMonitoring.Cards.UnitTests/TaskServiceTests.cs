@@ -85,7 +85,7 @@ namespace TaskMonitoring.Cards.UnitTests
 
 			//act
 			//assert
-			Assert.Throws<TaskNotFoundException>(() => _taskService.DeleteTaskById(taskId));
+			Assert.Throws<BL.Exceptions.TaskNotFoundException>(() => _taskService.DeleteTaskById(taskId));
 		}
 
 		[Test]
@@ -112,7 +112,7 @@ namespace TaskMonitoring.Cards.UnitTests
 
 			//act
 			//assert
-			Assert.Throws<TaskNotFoundException>(() => _taskService.AddComment(taskId, "test"));
+			Assert.Throws<BL.Exceptions.TaskNotFoundException>(() => _taskService.AddComment(taskId, "test"));
 		}
 	}
 }
