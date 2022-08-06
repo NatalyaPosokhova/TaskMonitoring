@@ -31,7 +31,8 @@ namespace TaskMonitoring.Cards.BL
 
 		public TaskDTO CreateTask(long userId, TaskDTO task)
 		{
-			var taskId = _data.AddTask(userId, Util<TaskDTO, TaskDataAccessDTO>.MapFrom(task));
+			task.UserId = userId;
+			var taskId = _data.AddTask(Util<TaskDTO, TaskDataAccessDTO>.MapFrom(task));
 			task.Id = taskId;
 			return task;
 		}

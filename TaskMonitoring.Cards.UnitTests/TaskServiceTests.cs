@@ -41,7 +41,8 @@ namespace TaskMonitoring.Cards.UnitTests
 			{ 
 				Comments =new List<string>{ "comment1" },
 				Summary = "summary",
-				Title = "title"
+				Title = "title",
+				UserId = _userId
 			};
 
 			TaskDTO expTask = new TaskDTO
@@ -52,7 +53,7 @@ namespace TaskMonitoring.Cards.UnitTests
 			};
 
 			long expectedTaskId = 1;
-			_dataAccess.AddTask(_userId, expTaskDataAccess).Returns(expectedTaskId);
+			_dataAccess.AddTask( expTaskDataAccess).Returns(expectedTaskId);
 
 			//act
 			var actTask = _taskService.CreateTask(_userId, expTask);

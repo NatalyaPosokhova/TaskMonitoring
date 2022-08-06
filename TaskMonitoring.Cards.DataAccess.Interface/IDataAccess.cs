@@ -7,7 +7,7 @@ namespace TaskMonitoring.Cards.DataAccess.Interface
 {
 	public interface IDataAccess
 	{
-		public long AddTask(long userId, TaskDataAccessDTO task);
+		public long AddTask(TaskDataAccessDTO task);
 		public void DeleteTask(long taskId);
 		public void UpdateTask(TaskDataAccessDTO task);
 		public void AddComment(long taskId, string comment);

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using TaskMonitoring.Cards.DataAccess.Interface;
+using TaskMonitoring.Cards.DataAccess.Interface.Exceptions;
 using TaskMonitoring.Cards.DataAccess.Models;
+using TaskMonitoring.Utilities;
 
 namespace TaskMonitoring.Cards.DataAccess
 {
@@ -14,13 +16,30 @@ namespace TaskMonitoring.Cards.DataAccess
 		}
 		public void AddComment(long taskId, string comment)
 		{
-			_db.Comments.Add( new Comment { Content = comment, TaskId = taskId });
+			try
+			{
+				_db.Comments.Add(new Comment { Content = comment, TaskId = taskId });
+				_db.SaveChanges();
+			}
+			catch(Exception e)
+			{
+				throw new CannotAddCommentException($"Cannot add comment {e.Message}");
+			}
 		}
 
-		public long AddTask(long userId, TaskDataAccessDTO task)
+		public long AddTask(TaskDataAccessDTO task)
 		{
-			//_db.Tasks.Add(task);
-			throw new NotImplementedException();
+			try
+			{
+				var mappedTask = Util<TaskDataAccessDTO, Task>.MapFrom(task);
+				_db.Tasks.Add(mappedTask);
+				_db.SaveChanges();
+				return mappedTask.Id;
+			}
+			catch(Exception e)
+			{
+				throw new CannotAddTaskException(e.Message);
+			}
 		}
 
 		public void DeleteTask(long taskId)
