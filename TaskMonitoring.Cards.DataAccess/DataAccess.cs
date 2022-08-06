@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TaskMonitoring.Cards.DataAccess.Interface;
 using TaskMonitoring.Cards.DataAccess.Interface.Exceptions;
 using TaskMonitoring.Cards.DataAccess.Models;
@@ -23,7 +24,7 @@ namespace TaskMonitoring.Cards.DataAccess
 			}
 			catch(Exception e)
 			{
-				throw new CannotAddCommentException($"Cannot add comment {e.Message}");
+				throw new CannotAddCommentException($"Cannot add comment {e.Message}, {e}");
 			}
 		}
 
@@ -38,13 +39,26 @@ namespace TaskMonitoring.Cards.DataAccess
 			}
 			catch(Exception e)
 			{
-				throw new CannotAddTaskException(e.Message);
+				throw new CannotAddTaskException(e.Message, e);
 			}
 		}
 
 		public void DeleteTask(long taskId)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var task = _db.Tasks.Where(t => t.Id == taskId).FirstOrDefault();
+				if(task == null)
+				{
+					throw new CannotDeleteTaskException($"Task with taskId: {taskId} is absent in database.");
+				}
+				_db.Tasks.Remove(task);
+				_db.SaveChanges();
+			}
+			catch(Exception e)
+			{
+				throw new CannotDeleteTaskException(e.Message, e);
+			}
 		}
 
 		public void Dispose()
@@ -54,17 +68,50 @@ namespace TaskMonitoring.Cards.DataAccess
 
 		public IEnumerable<TaskDataAccessDTO> GetAllTasksByUserId(long userId)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				return _db.Tasks.
+					Where(t => t.User.Id == userId).
+					Select(t => Util<Task, TaskDataAccessDTO>.MapFrom(t)).
+					ToList();
+			}
+			catch(Exception e)
+			{
+				throw new CannotGetTasksException(e.Message, e);
+			}
 		}
 
 		public TaskDataAccessDTO GetTaskById(long taskId)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				return _db.Tasks.Where(t => t.Id == taskId)
+				.Select(t => Util<Task, TaskDataAccessDTO>.MapFrom(t)).FirstOrDefault();
+			}
+			catch(Exception e)
+			{
+				throw new CannotAddTaskException(e.Message, e);
+			}
 		}
 
 		public void UpdateTask(TaskDataAccessDTO task)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var oldTask = _db.Tasks.Where(t => t.Id == task.Id).FirstOrDefault();
+				if(task == null)
+				{
+					throw new TaskNotFoundException("Task Not Found Exception");
+				}
+
+				oldTask.Title = task.Title;
+				oldTask.Summary = task.Summary;
+				_db.SaveChanges();
+			}
+			catch(Exception e)
+			{
+				throw new CannotUpdateTaskException(e.Message, e);
+			}
 		}
 	}
 }
