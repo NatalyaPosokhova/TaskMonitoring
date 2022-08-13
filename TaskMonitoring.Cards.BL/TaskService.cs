@@ -51,8 +51,12 @@ namespace TaskMonitoring.Cards.BL
 
 		public IEnumerable<TaskDTO> GetAllTasks(long userId)
 		{
-			var test = _data?.GetAllTasksByUserId(userId)?.Select(task => Util<TaskDataAccessDTO, TaskDTO>.MapFrom(task));
 			return _data?.GetAllTasksByUserId(userId)?.Select(task => Util<TaskDataAccessDTO, TaskDTO>.MapFrom(task));
+		}
+
+		public void UpdateTask(TaskDTO task)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

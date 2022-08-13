@@ -12,5 +12,6 @@ namespace TaskMonitoring.Cards.BL.Interface
 		public void DeleteTaskById(long taskId);
 		public void AddComment(long taskId, string comment);
 		public IEnumerable<TaskDTO> GetAllTasks(long userId);
+		public void UpdateTask(TaskDTO task);
 	}
 }

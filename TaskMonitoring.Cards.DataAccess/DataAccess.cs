@@ -113,5 +113,6 @@ namespace TaskMonitoring.Cards.DataAccess
 				throw new CannotUpdateTaskException(e.Message, e);
 			}
 		}
+		
 	}
 }
