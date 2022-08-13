@@ -8,6 +8,8 @@ using TaskMonitoring.Cards.DataAccess.Interface;
 using TaskMonitoring.Cards.DataAccess.Interface.Exceptions;
 using TaskMonitoring.Utilities;
 using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace TaskMonitoring.IntegrationalTests
 {
@@ -19,10 +21,13 @@ namespace TaskMonitoring.IntegrationalTests
 		private TaskDTO _task;
 		const long _taskId = 123;
 
-		[SetUp]
-		public void Setup()
+		private TaskDbContext _db;
+
+		[OneTimeSetUp]
+		public void OneTimeSetup()
 		{
-			_dataAccess = new DataAccess(new ContextFactory());
+			_db = new ContextFactory().CreateDbContext(null);
+			_dataAccess = new DataAccess(_db);
 			_service = new TaskService(_dataAccess);
 			_task = new TaskDTO
 			{
@@ -33,17 +38,10 @@ namespace TaskMonitoring.IntegrationalTests
 			};
 		}
 
-		[OneTimeTearDown]
+		[TearDown]
 		public void TearDown()
 		{
-			try
-			{
-				_service.DeleteTaskById(_taskId);
-			}
-			catch(Exception)
-			{				
-			}
-
+			_db.Database.ExecuteSqlInterpolated($"DELETE FROM Tasks Where Id = {_taskId}");				
 		}
 
 		[Test]
@@ -60,15 +58,6 @@ namespace TaskMonitoring.IntegrationalTests
 			Assert.AreEqual(expectedTask.Summary, act.Summary);
 			Assert.AreEqual(expectedTask.Title, act.Title);
 			Assert.AreEqual(expectedTask.UserId, act.UserId);
-		}
-
-		[Test]
-		public void CreateNewTaskForNotExistedUserShouldBeException()
-		{
-			//arrange
-			//actual
-			//assert
-			Assert.Throws<CannotAddTaskException>(() => _service.CreateTask(11111, _task));
 		}
 
 		[Test]
@@ -95,7 +84,7 @@ namespace TaskMonitoring.IntegrationalTests
 
 			//actual
 			//assert
-			Assert.Throws<CannotAddCommentException>(() => _service.AddComment(111, comment));
+			Assert.Throws<TaskNotFoundException>(() => _service.AddComment(111, comment));
 		}
 
 		[Test]
@@ -113,7 +102,7 @@ namespace TaskMonitoring.IntegrationalTests
 			_ =  _service.CreateTask(_userId, _task);
 			_service.UpdateTask(updatedTask);
 
-			var expectedTask = Util<TaskDataAccessDTO, TaskDTO>.MapFrom(_dataAccess.GetTaskById(_taskId));
+			var expectedTask = Util<TaskDataAccessDTO, TaskDTO>.Map(_dataAccess.GetTaskById(_taskId));
 
 			//assert
 			Assert.AreEqual(expectedTask, updatedTask);

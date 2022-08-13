@@ -14,5 +14,6 @@ namespace TaskMonitoring.Cards.DataAccess.Interface
 		public void AddComment(long taskId, string comment);
 		public IEnumerable<TaskDataAccessDTO> GetAllTasksByUserId(long userId);
 		public TaskDataAccessDTO GetTaskById(long taskId);
+		
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,14 @@ namespace TaskMonitoring.Utilities
 {
 	public static class Util<S,D>
 	{
-		public static D MapFrom(S source)
+		public static D Map(S source)
 		{
 			var mapper = MapperFactory<S, D>.CreateMapper();
 			return mapper.Map<D>(source);
+		}
+       public static Mapper CreateCustomMap(Action<IMappingExpression<S,D>> userSetup)
+		{
+			return MapperFactory<S, D>.CreateMapper(userSetup);
 		}
 	}
 }

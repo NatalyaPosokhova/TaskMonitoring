@@ -31,8 +31,9 @@ namespace TaskMonitoring.Cards.BL
 
 		public TaskDTO CreateTask(long userId, TaskDTO task)
 		{
+			//TODO: Сначала надо обратиться к апи пользователя и обратиться, что такой пользователь существует.
 			task.UserId = userId;
-			var taskId = _data.AddTask(Util<TaskDTO, TaskDataAccessDTO>.MapFrom(task));
+			var taskId = _data.AddTask(Util<TaskDTO, TaskDataAccessDTO>.Map(task));
 			task.Id = taskId;
 			return task;
 		}
@@ -51,7 +52,7 @@ namespace TaskMonitoring.Cards.BL
 
 		public IEnumerable<TaskDTO> GetAllTasks(long userId)
 		{
-			return _data?.GetAllTasksByUserId(userId)?.Select(task => Util<TaskDataAccessDTO, TaskDTO>.MapFrom(task));
+			return _data?.GetAllTasksByUserId(userId)?.Select(task => Util<TaskDataAccessDTO, TaskDTO>.Map(task));
 		}
 
 		public void UpdateTask(TaskDTO task)

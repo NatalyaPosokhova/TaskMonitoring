@@ -15,6 +15,11 @@ namespace TaskMonitoring.Cards.DataAccess
 		{
 			_db = contextFactory.CreateDbContext(null);
 		}
+
+		public DataAccess(TaskDbContext db)
+		{
+			_db = db;
+		}
 		public void AddComment(long taskId, string comment)
 		{
 			try
@@ -32,7 +37,8 @@ namespace TaskMonitoring.Cards.DataAccess
 		{
 			try
 			{
-				var mappedTask = Util<TaskDataAccessDTO, Task>.MapFrom(task);
+				var mappedTask = Util<TaskDataAccessDTO, Task>.CreateCustomMap(
+												(cfg) => { }).Map<TaskDataAccessDTO, Task>(task);
 				_db.Tasks.Add(mappedTask);
 				_db.SaveChanges();
 				return mappedTask.Id;
@@ -72,7 +78,7 @@ namespace TaskMonitoring.Cards.DataAccess
 			{
 				return _db.Tasks.
 					Where(t => t.User.Id == userId).
-					Select(t => Util<Task, TaskDataAccessDTO>.MapFrom(t)).
+					Select(t => Util<Task, TaskDataAccessDTO>.Map(t)).
 					ToList();
 			}
 			catch(Exception e)
@@ -86,7 +92,7 @@ namespace TaskMonitoring.Cards.DataAccess
 			try
 			{
 				return _db.Tasks.Where(t => t.Id == taskId)
-				.Select(t => Util<Task, TaskDataAccessDTO>.MapFrom(t)).FirstOrDefault();
+				.Select(t => Util<Task, TaskDataAccessDTO>.Map(t)).FirstOrDefault();
 			}
 			catch(Exception e)
 			{
