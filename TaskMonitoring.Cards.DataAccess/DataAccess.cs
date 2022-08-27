@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaskMonitoring.Cards.DataAccess.Interface;
@@ -38,7 +39,9 @@ namespace TaskMonitoring.Cards.DataAccess
 			try
 			{
 				var mappedTask = Util<TaskDataAccessDTO, Task>.CreateCustomMap(
-												(cfg) => { }).Map<TaskDataAccessDTO, Task>(task);
+					(cfg) => cfg.CreateMap<string, Comment>().ForMember(dest => dest.Content, m => m.MapFrom(src => src)))
+							.Map<TaskDataAccessDTO, Task>(task);
+				
 				_db.Tasks.Add(mappedTask);
 				_db.SaveChanges();
 				return mappedTask.Id;

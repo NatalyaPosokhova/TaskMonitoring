@@ -14,7 +14,7 @@ namespace TaskMonitoring.Utilities
 			var mapper = MapperFactory<S, D>.CreateMapper();
 			return mapper.Map<D>(source);
 		}
-       public static Mapper CreateCustomMap(Action<IMappingExpression<S,D>> userSetup)
+       public static Mapper CreateCustomMap(Action<IMapperConfigurationExpression> userSetup)
 		{
 			return MapperFactory<S, D>.CreateMapper(userSetup);
 		}

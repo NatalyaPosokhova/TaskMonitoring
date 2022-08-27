@@ -41,7 +41,7 @@ namespace TaskMonitoring.IntegrationalTests
 		[TearDown]
 		public void TearDown()
 		{
-			_db.Database.ExecuteSqlInterpolated($"DELETE FROM Tasks Where Id = {_taskId}");				
+			_db.Database.ExecuteSqlInterpolated($"DELETE FROM \"Tasks\" Where \"Id\" = {_taskId}");				
 		}
 
 		[Test]
