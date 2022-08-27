@@ -95,7 +95,10 @@ namespace TaskMonitoring.Cards.DataAccess
 			try
 			{
 				return _db.Tasks.Where(t => t.Id == taskId)
-				.Select(t => Util<Task, TaskDataAccessDTO>.Map(t)).FirstOrDefault();
+				.Select(t => Util<Task, TaskDataAccessDTO>
+				.CreateCustomMap((cfg) => cfg.CreateMap<IEnumerable<Comment>, IList<string>>()
+					.ForMember(dest => dest, m => m.MapFrom(src => src.Select(s => s.Content))))
+						.Map<Task, TaskDataAccessDTO>(t)).FirstOrDefault();
 			}
 			catch(Exception e)
 			{
