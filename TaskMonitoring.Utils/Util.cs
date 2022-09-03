@@ -9,14 +9,10 @@ namespace TaskMonitoring.Utilities
 {
 	public static class Util<S,D>
 	{
-		public static D Map(S source)
+		public static D Map(S source, Action<IMappingExpression<S, D>> userSetup = null)
 		{
-			var mapper = MapperFactory<S, D>.CreateMapper();
+			var mapper = MapperFactory<S, D>.CreateMapper(userSetup);
 			return mapper.Map<D>(source);
-		}
-       public static Mapper CreateCustomMap(Action<IMapperConfigurationExpression> userSetup)
-		{
-			return MapperFactory<S, D>.CreateMapper(userSetup);
 		}
 	}
 }
