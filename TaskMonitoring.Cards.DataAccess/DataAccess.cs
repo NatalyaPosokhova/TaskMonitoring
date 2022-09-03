@@ -40,7 +40,8 @@ namespace TaskMonitoring.Cards.DataAccess
 			try
 			{
 				var mappedTask = Util<TaskDataAccessDTO, Task>.Map(task, mappingExpr => mappingExpr
-									.ForMember(dest => dest.Comments, m => m.MapFrom<String2CommentResolver>()));
+									.ForMember(dest => dest.Comments, m => m.MapFrom<String2CommentResolver>())
+									.ForMember(dest => dest.User, m => m.MapFrom<UserId2UserResolver>()));
 
 				_db.Tasks.Add(mappedTask);
 				_db.SaveChanges();
@@ -96,7 +97,8 @@ namespace TaskMonitoring.Cards.DataAccess
 			{
 				var task = _db.Tasks.Where(t => t.Id == taskId).FirstOrDefault();
 				var result = Util<Task, TaskDataAccessDTO>.Map(task, mappingExpr => mappingExpr
-								.ForMember(dest => dest.Comments, m => m.MapFrom<Comment2StringResolver>()));
+								.ForMember(dest => dest.Comments, m => m.MapFrom<Comment2StringResolver>())
+								.ForMember(dest => dest.UserId, m => m.MapFrom<User2UserIdResolver>()));
 				return result;
 			}
 			catch(Exception e)

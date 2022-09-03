@@ -31,9 +31,11 @@ namespace TaskMonitoring.Cards.BL
 
 		public TaskDTO CreateTask(long userId, TaskDTO task)
 		{
-			//TODO: Сначала надо обратиться к апи пользователя и убедьться, что такой пользователь существует.
+			//TODO: Сначала надо обратиться к апи пользователя и убедиться, что такой пользователь существует.
 			task.UserId = userId;
-			var taskId = _data.AddTask(Util<TaskDTO, TaskDataAccessDTO>.Map(task));
+
+			var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
+			var taskId = _data.AddTask(mappedTask);
 			task.Id = taskId;
 			return task;
 		}
