@@ -11,7 +11,8 @@ namespace TaskMonitoring.Utilities
 			{
 				if(userSetup != null)
 					userSetup(cfg);
-				cfg.CreateMap<S, D>();
+				else
+					cfg.CreateMap<S, D>();
 			});
 
 			return new Mapper(config);

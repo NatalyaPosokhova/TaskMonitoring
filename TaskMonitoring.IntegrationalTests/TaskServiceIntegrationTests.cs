@@ -84,7 +84,7 @@ namespace TaskMonitoring.IntegrationalTests
 
 			//actual
 			//assert
-			Assert.Throws<TaskNotFoundException>(() => _service.AddComment(111, comment));
+			Assert.Throws<Cards.BL.Exceptions.TaskNotFoundException>(() => _service.AddComment(111, comment));
 		}
 
 		[Test]

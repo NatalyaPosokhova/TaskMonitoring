@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TaskMonitoring.Cards.DataAccess.Helper;
 using TaskMonitoring.Cards.DataAccess.Interface;
 using TaskMonitoring.Cards.DataAccess.Interface.Exceptions;
 using TaskMonitoring.Cards.DataAccess.Models;
@@ -38,10 +39,10 @@ namespace TaskMonitoring.Cards.DataAccess
 		{
 			try
 			{
-				var mappedTask = Util<TaskDataAccessDTO, Task>.CreateCustomMap(
-					(cfg) => cfg.CreateMap<string, Comment>().ForMember(dest => dest.Content, m => m.MapFrom(src => src)))
-							.Map<TaskDataAccessDTO, Task>(task);
-				
+				var mappedTask = Util<TaskDataAccessDTO, Task>.CreateCustomMap(cfg => cfg.CreateMap<TaskDataAccessDTO, Task>()
+									.ForMember(dest => dest.Comments, m => m.MapFrom<String2CommentResolver>()))
+									.Map<TaskDataAccessDTO, Task>(task);
+
 				_db.Tasks.Add(mappedTask);
 				_db.SaveChanges();
 				return mappedTask.Id;
@@ -94,11 +95,11 @@ namespace TaskMonitoring.Cards.DataAccess
 		{
 			try
 			{
-				return _db.Tasks.Where(t => t.Id == taskId)
-				.Select(t => Util<Task, TaskDataAccessDTO>
-				.CreateCustomMap((cfg) => cfg.CreateMap<IEnumerable<Comment>, IList<string>>()
-					.ForMember(dest => dest, m => m.MapFrom(src => src.Select(s => s.Content))))
-						.Map<Task, TaskDataAccessDTO>(t)).FirstOrDefault();
+				var task = _db.Tasks.Where(t => t.Id == taskId).FirstOrDefault();
+				var result = Util<Task, TaskDataAccessDTO>.CreateCustomMap(cfg => cfg.CreateMap<Task, TaskDataAccessDTO>()
+								.ForMember(dest => dest.Comments, m => m.MapFrom<Comment2StringResolver>()))
+								.Map<Task, TaskDataAccessDTO>(task);
+				return result;
 			}
 			catch(Exception e)
 			{
@@ -125,6 +126,6 @@ namespace TaskMonitoring.Cards.DataAccess
 				throw new CannotUpdateTaskException(e.Message, e);
 			}
 		}
-		
+
 	}
 }
