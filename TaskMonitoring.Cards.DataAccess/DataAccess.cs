@@ -96,6 +96,10 @@ namespace TaskMonitoring.Cards.DataAccess
 			try
 			{
 				var task = _db.Tasks.Where(t => t.Id == taskId).FirstOrDefault();
+				if(task == null)
+				{
+					throw new ArgumentException($"Task with id {taskId} not found.");
+				}
 				var result = Util<Task, TaskDataAccessDTO>.Map(task, mappingExpr => mappingExpr
 								.ForMember(dest => dest.Comments, m => m.MapFrom<Comment2StringResolver>())
 								.ForMember(dest => dest.UserId, m => m.MapFrom<User2UserIdResolver>()));
@@ -103,7 +107,7 @@ namespace TaskMonitoring.Cards.DataAccess
 			}
 			catch(Exception e)
 			{
-				throw new CannotAddTaskException(e.Message, e);
+				throw new CannotGetTaskException(e.Message, e);
 			}
 		}
 
@@ -116,6 +120,7 @@ namespace TaskMonitoring.Cards.DataAccess
 				{
 					throw new TaskNotFoundException("Task Not Found Exception");
 				}
+				
 
 				oldTask.Title = task.Title;
 				oldTask.Summary = task.Summary;

@@ -18,13 +18,12 @@ namespace TaskMonitoring.IntegrationalTests
 		private ITaskService _service;
 		private IDataAccess _dataAccess;
 		const long _userId = 1;
-		private TaskDTO _task;
-		const long _taskId = 123;
-
+		long _taskId = 123;
 		private TaskDbContext _db;
+		TaskDTO _task;
 
-		[OneTimeSetUp]
-		public void OneTimeSetup()
+		[SetUp]
+		public void SetUp()
 		{
 			_db = new ContextFactory().CreateDbContext(null);
 			_dataAccess = new DataAccess(_db);
@@ -41,7 +40,8 @@ namespace TaskMonitoring.IntegrationalTests
 		[TearDown]
 		public void TearDown()
 		{
-			_db.Database.ExecuteSqlInterpolated($"DELETE FROM \"Tasks\" Where \"Id\" = {_taskId}");				
+			_db.Database.ExecuteSqlInterpolated($"DELETE FROM \"Tasks\" Where \"Id\" = {_taskId}");
+			_db.Database.ExecuteSqlInterpolated($"DELETE FROM \"Users\" Where \"Id\" = {_userId}");
 		}
 
 		[Test]
@@ -88,6 +88,7 @@ namespace TaskMonitoring.IntegrationalTests
 		}
 
 		[Test]
+		//[Ignore("Temporary off")]
 		public void UpdateTaskShouldBeSuccess()
 		{
 			//arrange
@@ -95,7 +96,9 @@ namespace TaskMonitoring.IntegrationalTests
 			{
 				Id = _taskId,
 				Summary = "summary2",
-				Title = "title2"
+				Title = "title2",
+				Comments = _task.Comments,
+				UserId = _task.UserId
 			};
 
 			//actual
@@ -117,7 +120,7 @@ namespace TaskMonitoring.IntegrationalTests
 			_service.DeleteTaskById(_taskId);
 
 			//assert
-			Assert.Throws<CannotGetTaskException>(() => _dataAccess.GetTaskById(_taskId));
+			Assert.Throws<CannotGetTaskException>(() => _dataAccess.GetTaskById(_taskId), "Task with id 123 not found.");
 		}
 	}
 }

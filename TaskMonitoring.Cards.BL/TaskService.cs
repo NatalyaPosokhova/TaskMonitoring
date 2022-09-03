@@ -59,7 +59,8 @@ namespace TaskMonitoring.Cards.BL
 
 		public void UpdateTask(TaskDTO task)
 		{
-			throw new System.NotImplementedException();
+			var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
+			_data.UpdateTask(mappedTask);			
 		}
 	}
 }

@@ -9,6 +9,5 @@ namespace TaskMonitoring.Cards.DataAccess.Models
 	public class User
 	{
 		public long Id { get; set; }
-		public IEnumerable<Comment> Tasks { get; set; }
 	}
 }

@@ -12,8 +12,7 @@ namespace TaskMonitoring.Cards.DataAccess.Helper
 		{
 			return new User
 			{ 
-				Id = source.UserId, 
-				Tasks = source.Comments.Select(c => new Comment { Content = c, TaskId = source.Id}).ToList()
+				Id = source.UserId
 			};
 		}
 	}
