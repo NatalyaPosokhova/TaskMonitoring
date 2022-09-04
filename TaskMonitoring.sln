@@ -19,7 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Bootsrap", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Utilities", "TaskMonitoring.Utils\TaskMonitoring.Utilities.csproj", "{2B3B5572-ECD8-4E40-B245-684C7B0BEE24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.IntegrationalTests", "TaskMonitoring.IntegrationalTests\TaskMonitoring.IntegrationalTests.csproj", "{9480719A-A134-478D-B33C-7DE6395F5A71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.IntegrationalTests", "TaskMonitoring.IntegrationalTests\TaskMonitoring.IntegrationalTests.csproj", "{9480719A-A134-478D-B33C-7DE6395F5A71}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task microservice", "Task microservice", "{C5615AD5-A611-460F-AF19-95596035B7FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User microservice", "User microservice", "{C28CAF73-CBBB-4E89-ABB7-F73286B94196}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +70,17 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{10EDE8C7-E2BE-409F-AD4C-C63DBF6935D6} = {C5615AD5-A611-460F-AF19-95596035B7FA}
+		{86D6A373-52A9-48A2-9FB7-2857194263CB} = {C5615AD5-A611-460F-AF19-95596035B7FA}
+		{D2D8AC72-2D6F-41CB-892E-8C995428DC01} = {C5615AD5-A611-460F-AF19-95596035B7FA}
+		{DA5D17C3-09CE-4337-A949-FFE3C845AAF3} = {C5615AD5-A611-460F-AF19-95596035B7FA}
+		{3F16D0D6-CC0A-4796-8655-E5C66EBB547B} = {C5615AD5-A611-460F-AF19-95596035B7FA}
+		{1C88D8D0-48EC-4590-B487-4A4A71229548} = {C5615AD5-A611-460F-AF19-95596035B7FA}
+		{6050B831-4F78-43FC-AC50-7106D695451B} = {C5615AD5-A611-460F-AF19-95596035B7FA}
+		{2B3B5572-ECD8-4E40-B245-684C7B0BEE24} = {C5615AD5-A611-460F-AF19-95596035B7FA}
+		{9480719A-A134-478D-B33C-7DE6395F5A71} = {C5615AD5-A611-460F-AF19-95596035B7FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD6FE827-0768-4255-BF22-C8863BDC0F4B}
