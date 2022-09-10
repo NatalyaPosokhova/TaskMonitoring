@@ -7,6 +7,5 @@ namespace TaskMonitoring.Users.BL.Interface.DTO
 		public long Id { get; set; }
 		public string Login {get; set;}
 		public string Password { get; set; }
-		public IEnumerable<long> TasksIds { get; set; }
 	}
 }

@@ -42,8 +42,8 @@ namespace TaskMonitoring.Users.UnitTests
 			};
 
 			//act
-			var actUserId = _userService.CreateUser(login, password);
-			_dataAccess.Received().CreateUser(expectedUser);
+			var actUserId = _userService.CreateUser(login, password).Id;
+			_dataAccess.CreateUser(expectedUser).Returns(expUserId);
 
 			//assert
 			Assert.AreEqual(expUserId, actUserId);
@@ -94,6 +94,28 @@ namespace TaskMonitoring.Users.UnitTests
 		}
 
 		[Test]
+		public void GetUserByIdShouldBeSuccess()
+		{
+			//arrange
+			long userId = 123;
+			string login = "login";
+			string password = "password";
+			var expUser = new User
+			{
+				Id = userId,
+				Login = login,
+				Password = password
+			};
+			_dataAccess.GetUserById(userId).Returns(expUser);
+
+			//act
+			var actUser = _userService.GetUserById(userId);
+
+			//assert
+			Assert.AreEqual(expUser, actUser);
+		}
+
+		[Test]
 		public void GetNotExistedUserByIdShouldBeException()
 		{
 			//arrange
@@ -136,24 +158,6 @@ namespace TaskMonitoring.Users.UnitTests
 			//act
 			//assert
 			Assert.Throws<UserNotFoundException>(() => _userService.DeleteUser(userId));
-
-		}
-
-		[Test]
-		public void TryGetAllUserTasksShouldBeSuccess()
-		{
-			//arrange
-			long userId = 123;
-
-			var expTasksIds = new List<long> { 111, 222, 333 };
-
-			//act
-			_dataAccess.GetAllUserTasks(userId).Returns(expTasksIds);
-			var actTasksIds = _userService.GetAllUserTasks(userId);
-
-			//act
-			//assert
-			Assert.AreEqual(expTasksIds, actTasksIds);
 
 		}
 

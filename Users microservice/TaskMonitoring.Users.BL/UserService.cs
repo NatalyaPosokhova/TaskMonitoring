@@ -6,17 +6,12 @@ namespace TaskMonitoring.Users.BL
 {
 	public class UserService : IUserService
 	{
-		public long CreateUser(string login, string password)
+		public UserDTO CreateUser(string login, string password)
 		{
 			throw new System.NotImplementedException();
 		}
 
 		public void DeleteUser(long id)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public IEnumerable<long> GetAllUserTasks(long id)
 		{
 			throw new System.NotImplementedException();
 		}

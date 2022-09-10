@@ -7,6 +7,16 @@ namespace TaskMonitoring.Users.DataAccess.Interface.Models
 		public long Id { get; set; }
 		public string Login { get; set; }
 		public string Password { get; set; }
-		public IQueryable<long> TasksIds { get; set; }
+
+		public override bool Equals(object obj)
+		{
+			if(obj == null)
+				return false;
+			if(obj is not User )
+				return false;
+
+			var user = (User)obj;
+			return user.Id == Id && user.Login == Login && user.Password == Password;
+		}
 	}
 }

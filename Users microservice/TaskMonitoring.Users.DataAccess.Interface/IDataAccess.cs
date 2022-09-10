@@ -5,7 +5,7 @@ namespace TaskMonitoring.Users.DataAccess.Interface
 {
 	public interface IDataAccess
 	{
-		public void CreateUser(User user);
+		public long CreateUser(User user);
 		public User GetUserById(long id);
 		public void UpdateUser(User user);
 		public void DeleteUser(long id);
