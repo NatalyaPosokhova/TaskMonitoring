@@ -13,7 +13,7 @@ namespace TaskMonitoring.Cards.DataAccess
 	public class DataAccess : IDataAccess, IDisposable
 	{
 		private readonly TaskDbContext _db;
-		public DataAccess(ContextFactory contextFactory)
+		public DataAccess(ContextFactory<TaskDbContext> contextFactory)
 		{
 			_db = contextFactory.CreateDbContext(null);
 		}

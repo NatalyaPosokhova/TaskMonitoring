@@ -190,8 +190,6 @@ namespace TaskMonitoring.Users.UnitTests
 			//act
 			//assert
 			Assert.Throws<UserNotFoundException>(() => _userService.DeleteUser(userId));
-
 		}
-
 	}
 }

@@ -25,7 +25,7 @@ namespace TaskMonitoring.IntegrationalTests
 		[SetUp]
 		public void SetUp()
 		{
-			_db = new ContextFactory().CreateDbContext(null);
+			_db = new ContextFactory<TaskDbContext>().CreateDbContext(null);
 			_dataAccess = new DataAccess(_db);
 			_service = new TaskService(_dataAccess);
 			_task = new TaskDTO

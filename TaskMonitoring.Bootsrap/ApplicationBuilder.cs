@@ -4,6 +4,7 @@ using TaskMonitoring.Cards.BL;
 using TaskMonitoring.Cards.BL.Interface;
 using TaskMonitoring.Cards.DataAccess;
 using TaskMonitoring.Cards.DataAccess.Interface;
+using TaskMonitoring.Utilities;
 
 namespace TaskMonitoring.Bootsrap
 {
@@ -13,7 +14,7 @@ namespace TaskMonitoring.Bootsrap
 		{
 			services.AddTransient<IDataAccess, DataAccess>();
 			services.AddTransient<ITaskService, TaskService>();
-			services.AddScoped<ContextFactory>();
+			services.AddScoped<ContextFactory<TaskDbContext>>();
 		}
 	}
 }
