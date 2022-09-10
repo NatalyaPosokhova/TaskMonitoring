@@ -127,6 +127,26 @@ namespace TaskMonitoring.Users.UnitTests
 		}
 
 		[Test]
+		public void UpdateUserShouldBeSuccess()
+		{
+			//arrange
+			long userId = 123;
+			string login = "login";
+			string newPassword = "newPassword";
+			var user = new User
+			{
+				Id = userId,
+				Login = login,
+				Password = newPassword
+			};
+
+			_dataAccess.Received().UpdateUser(user);
+			_userService.UpdateUserPassword(userId, newPassword);
+			//act
+			//assert
+		}
+
+		[Test]
 		public void UpdateNotExistedUserPasswordShouldBeException()
 		{
 			//arrange
@@ -147,6 +167,18 @@ namespace TaskMonitoring.Users.UnitTests
 
 			Assert.Throws<UserNotFoundException>(() => _userService.UpdateUserPassword(userId, password));
 
+		}
+
+		[Test]
+		public void DeleteUserShouldBeSuccess()
+		{
+			//arrange
+			long userId = 123;
+			//act
+			//assert
+
+			_dataAccess.Received().DeleteUser(userId);
+			_userService.DeleteUser(userId);
 		}
 
 		[Test]
