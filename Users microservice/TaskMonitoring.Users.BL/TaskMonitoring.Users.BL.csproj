@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaskMonitoring.Users.BL.Interface\TaskMonitoring.Users.BL.Interface.csproj" />
+  </ItemGroup>
+
+</Project>

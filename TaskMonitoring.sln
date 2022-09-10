@@ -25,6 +25,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task microservice", "Task m
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User microservice", "User microservice", "{C28CAF73-CBBB-4E89-ABB7-F73286B94196}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.BL", "Users microservice\TaskMonitoring.Users.BL\TaskMonitoring.Users.BL.csproj", "{69FF2629-33EB-4A34-BF74-20E3753F3209}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.BL.Interface", "Users microservice\TaskMonitoring.Users.BL.Interface\TaskMonitoring.Users.BL.Interface.csproj", "{3EB9CAB2-38F3-4359-8A77-18DF31520BDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.DataAccess.Interface", "Users microservice\TaskMonitoring.Users.DataAccess.Interface\TaskMonitoring.Users.DataAccess.Interface.csproj", "{D6B1CFAD-6800-4A4D-AEE8-6723D5719761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.DataAccess", "Users microservice\TaskMonitoring.Users.DataAccess\TaskMonitoring.Users.DataAccess.csproj", "{CE9F9EDF-CD77-497C-ADFE-A1B7945ADD09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.UnitTests", "Users microservice\TaskMonitoring.Users.UnitTests\TaskMonitoring.Users.UnitTests.csproj", "{4989D71C-C27E-4A3C-AB62-A2833B5A0F47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +77,26 @@ Global
 		{9480719A-A134-478D-B33C-7DE6395F5A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9480719A-A134-478D-B33C-7DE6395F5A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9480719A-A134-478D-B33C-7DE6395F5A71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69FF2629-33EB-4A34-BF74-20E3753F3209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69FF2629-33EB-4A34-BF74-20E3753F3209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69FF2629-33EB-4A34-BF74-20E3753F3209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69FF2629-33EB-4A34-BF74-20E3753F3209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EB9CAB2-38F3-4359-8A77-18DF31520BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EB9CAB2-38F3-4359-8A77-18DF31520BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EB9CAB2-38F3-4359-8A77-18DF31520BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EB9CAB2-38F3-4359-8A77-18DF31520BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6B1CFAD-6800-4A4D-AEE8-6723D5719761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6B1CFAD-6800-4A4D-AEE8-6723D5719761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6B1CFAD-6800-4A4D-AEE8-6723D5719761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6B1CFAD-6800-4A4D-AEE8-6723D5719761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE9F9EDF-CD77-497C-ADFE-A1B7945ADD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE9F9EDF-CD77-497C-ADFE-A1B7945ADD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE9F9EDF-CD77-497C-ADFE-A1B7945ADD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE9F9EDF-CD77-497C-ADFE-A1B7945ADD09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4989D71C-C27E-4A3C-AB62-A2833B5A0F47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4989D71C-C27E-4A3C-AB62-A2833B5A0F47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4989D71C-C27E-4A3C-AB62-A2833B5A0F47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4989D71C-C27E-4A3C-AB62-A2833B5A0F47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +111,11 @@ Global
 		{6050B831-4F78-43FC-AC50-7106D695451B} = {C5615AD5-A611-460F-AF19-95596035B7FA}
 		{2B3B5572-ECD8-4E40-B245-684C7B0BEE24} = {C5615AD5-A611-460F-AF19-95596035B7FA}
 		{9480719A-A134-478D-B33C-7DE6395F5A71} = {C5615AD5-A611-460F-AF19-95596035B7FA}
+		{69FF2629-33EB-4A34-BF74-20E3753F3209} = {C28CAF73-CBBB-4E89-ABB7-F73286B94196}
+		{3EB9CAB2-38F3-4359-8A77-18DF31520BDD} = {C28CAF73-CBBB-4E89-ABB7-F73286B94196}
+		{D6B1CFAD-6800-4A4D-AEE8-6723D5719761} = {C28CAF73-CBBB-4E89-ABB7-F73286B94196}
+		{CE9F9EDF-CD77-497C-ADFE-A1B7945ADD09} = {C28CAF73-CBBB-4E89-ABB7-F73286B94196}
+		{4989D71C-C27E-4A3C-AB62-A2833B5A0F47} = {C28CAF73-CBBB-4E89-ABB7-F73286B94196}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD6FE827-0768-4255-BF22-C8863BDC0F4B}
