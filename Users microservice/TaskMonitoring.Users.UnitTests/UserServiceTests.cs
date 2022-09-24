@@ -5,7 +5,6 @@ using NSubstitute;
 using TaskMonitoring.Users.DataAccess.Interface;
 using TaskMonitoring.Users.DataAccess.Interface.Models;
 using TaskMonitoring.Users.BL.Exceptions;
-using System.Collections.Generic;
 
 namespace TaskMonitoring.Users.UnitTests
 {
@@ -17,8 +16,8 @@ namespace TaskMonitoring.Users.UnitTests
 		[SetUp]
 		public void Setup()
 		{
-			_userService = new UserService();
 			_dataAccess = Substitute.For<IDataAccess>();
+			_userService = new UserService(_dataAccess);
 		}
 
 		[TearDown]
@@ -42,8 +41,8 @@ namespace TaskMonitoring.Users.UnitTests
 			};
 
 			//act
-			var actUserId = _userService.CreateUser(login, password).Id;
 			_dataAccess.CreateUser(expectedUser).Returns(expUserId);
+			var actUserId = _userService.CreateUser(login, password).Id;
 
 			//assert
 			Assert.AreEqual(expUserId, actUserId);

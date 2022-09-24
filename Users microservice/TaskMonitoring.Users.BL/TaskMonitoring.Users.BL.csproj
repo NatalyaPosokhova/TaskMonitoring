@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\TaskMonitoring.Utils\TaskMonitoring.Utilities.csproj" />
     <ProjectReference Include="..\TaskMonitoring.Users.BL.Interface\TaskMonitoring.Users.BL.Interface.csproj" />
+    <ProjectReference Include="..\TaskMonitoring.Users.DataAccess.Interface\TaskMonitoring.Users.DataAccess.Interface.csproj" />
   </ItemGroup>
 
 </Project>
