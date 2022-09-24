@@ -10,25 +10,29 @@ namespace TaskMonitoring.Users.BL
 {
 	public class UserService : IUserService
 	{
+
 		public IDataAccess _dataAccess;
 		public UserService(IDataAccess dataAccess)
 		{
 			_dataAccess = dataAccess;
 		}
+
 		public UserDTO CreateUser(string login, string password)
 		{
+
+			if(string.IsNullOrEmpty(login))
+				throw new EmptyLoginException("");
+			if(password == null || password.Length < 5)
+				throw new PasswordLengthException("");
+
+			var user = new User
+			{
+				Login = login,
+				Password = password
+			};
+
 			try
 			{
-				if(string.IsNullOrEmpty(login))
-					throw new EmptyLoginException("");
-				if(password == null || password.Length < 5)
-					throw new PasswordLengthException("");
-
-				var user = new User
-				{
-					Login = login,
-					Password = password
-				};
 				var userId = _dataAccess.CreateUser(user);
 				user.Id = userId;
 				return Util<User, UserDTO>.Map(user);

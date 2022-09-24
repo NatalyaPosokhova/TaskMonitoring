@@ -5,6 +5,8 @@ using NSubstitute;
 using TaskMonitoring.Users.DataAccess.Interface;
 using TaskMonitoring.Users.DataAccess.Interface.Models;
 using TaskMonitoring.Users.BL.Exceptions;
+using TaskMonitoring.Users.BL.Interface.DTO;
+using TaskMonitoring.Utilities;
 
 namespace TaskMonitoring.Users.UnitTests
 {
@@ -35,7 +37,6 @@ namespace TaskMonitoring.Users.UnitTests
 			long expUserId = 123;
 			var expectedUser = new User 
 			{
-				Id = expUserId,
 				Login = login,
 				Password = password
 			};
@@ -69,7 +70,6 @@ namespace TaskMonitoring.Users.UnitTests
 			long expUserId = 123;
 			var user = new User
 			{
-				Id = expUserId,
 				Login = login,
 				Password = password
 			};
@@ -111,7 +111,7 @@ namespace TaskMonitoring.Users.UnitTests
 			var actUser = _userService.GetUserById(userId);
 
 			//assert
-			Assert.AreEqual(expUser, actUser);
+			Assert.AreEqual(Util<User, UserDTO>.Map(expUser), actUser);
 		}
 
 		[Test]
@@ -132,17 +132,26 @@ namespace TaskMonitoring.Users.UnitTests
 			long userId = 123;
 			string login = "login";
 			string newPassword = "newPassword";
-			var user = new User
+			string oldPassword = "password";
+			var oldUser = new User
+			{
+				Id = userId,
+				Login = login,
+				Password = oldPassword
+			};
+			var newUser = new User
 			{
 				Id = userId,
 				Login = login,
 				Password = newPassword
 			};
 
-			_dataAccess.Received().UpdateUser(user);
-			_userService.UpdateUserPassword(userId, newPassword);
 			//act
+			_dataAccess.GetUserById(userId).Returns(oldUser);
+			_userService.UpdateUserPassword(userId, newPassword);
+
 			//assert
+			_dataAccess.Received().UpdateUser(newUser);
 		}
 
 		[Test]
@@ -176,8 +185,8 @@ namespace TaskMonitoring.Users.UnitTests
 			//act
 			//assert
 
-			_dataAccess.Received().DeleteUser(userId);
 			_userService.DeleteUser(userId);
+			_dataAccess.Received().DeleteUser(userId);
 		}
 
 		[Test]
