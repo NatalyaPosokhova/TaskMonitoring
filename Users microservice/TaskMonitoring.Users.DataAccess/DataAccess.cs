@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using TaskMonitoring.Users.DataAccess.Interface;
+using TaskMonitoring.Users.DataAccess.Interface.Exceptions;
 using TaskMonitoring.Users.DataAccess.Interface.Models;
 using TaskMonitoring.Utilities;
 
@@ -15,32 +18,65 @@ namespace TaskMonitoring.Users.DataAccess
 		}
 		public long CreateUser(User user)
 		{
-			throw new System.NotImplementedException();
+			try
+			{
+				_db.Users.Add(user);
+				_db.SaveChanges();
+
+				return user.Id;
+			}
+			catch(DbUpdateException ex)
+			{
+				throw new UserAlreadyExistsException($"Пользователь с id: {user.Id} уже существует.", ex);
+			}
+			catch(Exception ex)
+			{
+				throw new CannotCreateUserException("Невозможно создать пользователя в базе данных.", ex);
+			}
 		}
 
 		public void DeleteUser(long id)
 		{
-			throw new System.NotImplementedException();
+			try
+			{
+				_db.Database.ExecuteSqlInterpolated($"DELETE FROM Users WHERE Id = {id}");
+				_db.SaveChanges();
+			}
+			catch(Exception ex)
+			{
+				throw new CannotDeleteUserException($"Невозможно удалить пользователя с id = {id}.", ex);
+			}
 		}
 
 		public void Dispose()
 		{
-			throw new NotImplementedException();
-		}
-
-		public IEnumerable<long> GetAllUserTasks(long id)
-		{
-			throw new System.NotImplementedException();
+			_db.Dispose();
 		}
 
 		public User GetUserById(long id)
 		{
-			throw new System.NotImplementedException();
+			try
+			{
+				var user = _db.Users.Where(user => user.Id == id).FirstOrDefault();
+				return user;
+			}
+			catch(Exception ex)
+			{
+				throw new CannotGetUserException($"Невозможно получить пользователя из базы данных с id = {id}", ex);
+			}
 		}
 
 		public void UpdateUser(User user)
 		{
-			throw new System.NotImplementedException();
+			try
+			{
+				_db.Database.ExecuteSqlInterpolated($"UPDATE Users SET Password = {user.Password} WHERE Id = {user.Id}");
+				_db.SaveChanges();
+			}
+			catch(Exception)
+			{
+				throw new CannotUpdateUserException($"Невозможно обновить пароль у пользователя с id {user.Id}.");
+			}
 		}
 	}
 }
