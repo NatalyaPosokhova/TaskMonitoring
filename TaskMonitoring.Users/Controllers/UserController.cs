@@ -2,6 +2,7 @@
 using TaskMonitoring.Users.BL.Interface;
 using TaskMonitoring.Users.BL.Interface.DTO;
 using TaskMonitoring.Users.Data;
+using TaskMonitoring.Users.DataAccess.Interface.Exceptions;
 using TaskMonitoring.Utilities;
 
 namespace TaskMonitoring.Users.Controllers
@@ -25,6 +26,10 @@ namespace TaskMonitoring.Users.Controllers
 				var user = Util<UserDTO, User>.Map(userDto);
 
 				return new ObjectResult(user);
+			}
+			catch(UserAlreadyExistsException ex)
+			{
+				return new BadRequestObjectResult(new { err = ex.Message, innerException = ex.InnerException });
 			}
 			catch(Exception)
 			{
