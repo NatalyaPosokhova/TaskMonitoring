@@ -25,15 +25,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task microservice", "Task m
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User microservice", "User microservice", "{C28CAF73-CBBB-4E89-ABB7-F73286B94196}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.BL", "Users microservice\TaskMonitoring.Users.BL\TaskMonitoring.Users.BL.csproj", "{69FF2629-33EB-4A34-BF74-20E3753F3209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Users.BL", "Users microservice\TaskMonitoring.Users.BL\TaskMonitoring.Users.BL.csproj", "{69FF2629-33EB-4A34-BF74-20E3753F3209}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.BL.Interface", "Users microservice\TaskMonitoring.Users.BL.Interface\TaskMonitoring.Users.BL.Interface.csproj", "{3EB9CAB2-38F3-4359-8A77-18DF31520BDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Users.BL.Interface", "Users microservice\TaskMonitoring.Users.BL.Interface\TaskMonitoring.Users.BL.Interface.csproj", "{3EB9CAB2-38F3-4359-8A77-18DF31520BDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.DataAccess.Interface", "Users microservice\TaskMonitoring.Users.DataAccess.Interface\TaskMonitoring.Users.DataAccess.Interface.csproj", "{D6B1CFAD-6800-4A4D-AEE8-6723D5719761}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Users.DataAccess.Interface", "Users microservice\TaskMonitoring.Users.DataAccess.Interface\TaskMonitoring.Users.DataAccess.Interface.csproj", "{D6B1CFAD-6800-4A4D-AEE8-6723D5719761}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.DataAccess", "Users microservice\TaskMonitoring.Users.DataAccess\TaskMonitoring.Users.DataAccess.csproj", "{CE9F9EDF-CD77-497C-ADFE-A1B7945ADD09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Users.DataAccess", "Users microservice\TaskMonitoring.Users.DataAccess\TaskMonitoring.Users.DataAccess.csproj", "{CE9F9EDF-CD77-497C-ADFE-A1B7945ADD09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.UnitTests", "Users microservice\TaskMonitoring.Users.UnitTests\TaskMonitoring.Users.UnitTests.csproj", "{4989D71C-C27E-4A3C-AB62-A2833B5A0F47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Users.UnitTests", "Users microservice\TaskMonitoring.Users.UnitTests\TaskMonitoring.Users.UnitTests.csproj", "{4989D71C-C27E-4A3C-AB62-A2833B5A0F47}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E9BCD641-D8F9-4C08-B6F8-7A8F2435EF52}"
 EndProject
