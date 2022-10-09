@@ -17,7 +17,7 @@ namespace TaskMonitoring.Users.DataAccess
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			if(!optionsBuilder.IsConfigured)
-				optionsBuilder.UseNpgsql("Data Source=user.db;providerName=\"System.Data.EntityClient\";metadata=test.mt");
+				optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=userdb;Username=postgres;Password=qwerty");
 		}
 	}
 }

@@ -19,4 +19,10 @@
     <ProjectReference Include="..\TaskMonitoring.Cards.DataAccess\TaskMonitoring.Cards.DataAccess.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<None Update="..\TaskMonitoring.Bootsrap\appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
 </Project>
