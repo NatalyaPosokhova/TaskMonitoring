@@ -64,5 +64,20 @@ namespace TaskMonitoring.Users.Controllers
 				return new StatusCodeResult(500);
 			}
 		}
+
+		[HttpGet]
+		public IActionResult GetUserById(long userId)
+		{
+			try
+			{
+				var userDTO = _userService.GetUserById(userId);
+				var user = Util<UserDTO, User>.Map(userDTO);
+				return new ObjectResult(user);
+			}
+			catch(Exception)
+			{
+				return new StatusCodeResult(500);
+			}
+		}
 	}
 }

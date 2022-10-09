@@ -6,15 +6,19 @@ using TaskMonitoring.Cards.DataAccess.Interface.Exceptions;
 using TaskMonitoring.Cards.BL.Exceptions;
 using System.Linq;
 using TaskMonitoring.Utilities;
+using TaskMonitoring.APIClients.Users.Interfaces;
 
 namespace TaskMonitoring.Cards.BL
 {
 	public class TaskService : ITaskService
 	{
 		private IDataAccess _data;
-		public TaskService(IDataAccess data)
+		private readonly IWebAPIUsers _webAPIUsers;
+
+		public TaskService(IDataAccess data, IWebAPIUsers webAPIUsers)
 		{
 			_data = data;
+			_webAPIUsers = webAPIUsers;
 		}
 
 		public void AddComment(long taskId, string comment)
@@ -31,13 +35,23 @@ namespace TaskMonitoring.Cards.BL
 
 		public TaskDTO CreateTask(long userId, TaskDTO task)
 		{
-			//TODO: Сначала надо обратиться к апи пользователя и убедиться, что такой пользователь существует.
-			task.UserId = userId;
+			try
+			{
+				if(_webAPIUsers.GetUserById(userId) != null)
+				{
+					task.UserId = userId;
+					var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
+					var taskId = _data.AddTask(mappedTask);
+					task.Id = taskId;
+					return task;
+				}
+				return null;
+			}
+			catch(System.Exception ex)
+			{
+				throw new CannotCreateTaskException("Не удалось создать задачу.", ex);
+			}
 
-			var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
-			var taskId = _data.AddTask(mappedTask);
-			task.Id = taskId;
-			return task;
 		}
 
 		public void DeleteTaskById(long taskId)

@@ -10,6 +10,7 @@ using TaskMonitoring.Utilities;
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using TaskMonitoring.APIClients.Users.Interfaces;
 
 namespace TaskMonitoring.IntegrationalTests
 {
@@ -17,6 +18,7 @@ namespace TaskMonitoring.IntegrationalTests
 	{
 		private ITaskService _service;
 		private IDataAccess _dataAccess;
+		private IWebAPIUsers _webAPIUsers;
 		const long _userId = 1;
 		long _taskId = 123;
 		private TaskDbContext _db;
@@ -27,7 +29,8 @@ namespace TaskMonitoring.IntegrationalTests
 		{
 			_db = new ContextFactory<TaskDbContext>().CreateDbContext(null);
 			_dataAccess = new DataAccess(_db);
-			_service = new TaskService(_dataAccess);
+			_webAPIUsers = new WebAPIUsers();
+			_service = new TaskService(_dataAccess, _webAPIUsers);
 			_task = new TaskDTO
 			{
 				Id = _taskId,
