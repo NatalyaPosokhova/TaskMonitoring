@@ -8,9 +8,15 @@ namespace TaskMonitoring.APIClients
 {
 	public class WebProxy<TRequest, TResponse>
 	{
-		public async Task<TResponse> Get(string query, TRequest request)
+		public async Task<TResponse> GetAsync(string query, TRequest request)
 		{
 			throw new NotImplementedException();
 		}
+
+		public async Task<TResponse> PostAsync(string query, TRequest responce)
+		{
+			throw new NotImplementedException();
+		}
+
 	}
 }
