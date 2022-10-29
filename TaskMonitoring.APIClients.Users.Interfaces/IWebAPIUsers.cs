@@ -5,6 +5,6 @@ namespace TaskMonitoring.APIClients.Users.Interfaces
 {
 	public interface IWebAPIUsers
 	{
-		public User GetUserById(long Id);
+		public Task<User> GetUserById(long Id);
 	}
 }

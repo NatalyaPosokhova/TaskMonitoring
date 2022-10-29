@@ -7,11 +7,19 @@ using TaskMonitoring.APIClients.Users.Interfaces.DTO;
 
 namespace TaskMonitoring.APIClients.Users.Interfaces
 {
-	public class WebAPIUsers : IWebAPIUsers
+	public class WebAPIUsers : WebProxy, IWebAPIUsers
 	{
-		public User GetUserById(long Id)
+		public async Task<User> GetUserById(long Id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				string query = $"/api/User/GetUserById/";
+				return await GetAsync<long, User>(query, Id);
+			}
+			catch(HttpRequestException e)
+			{
+				throw new WebProxyException(e);
+			}
 		}
 	}
 }
