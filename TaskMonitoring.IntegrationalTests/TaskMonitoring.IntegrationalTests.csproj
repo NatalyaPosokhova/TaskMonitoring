@@ -20,7 +20,10 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<None Update="..\TaskMonitoring.Bootsrap\appsettings.json">
+		<None Update="appsettings.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="D:\proj\Task\TaskMonitoring.Bootsrap\appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

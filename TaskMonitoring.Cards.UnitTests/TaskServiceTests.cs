@@ -56,9 +56,14 @@ namespace TaskMonitoring.Cards.UnitTests
 				Title = "title"
 			};
 
+			var user = new User
+			{
+				Id = _userId
+			};
+
 			long expectedTaskId = 1;
 			_dataAccess.AddTask( expTaskDataAccess).Returns(expectedTaskId);
-			_webAPIUsers.GetUserById(_userId).Returns(Arg.Any<User>());
+			_webAPIUsers.GetUserById(_userId).Returns(user);
 
 			//act
 			var actTask = _taskService.CreateTask(_userId, expTask);
