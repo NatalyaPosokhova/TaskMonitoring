@@ -8,7 +8,7 @@ using TaskMonitoring.Utilities;
 namespace TaskMonitoring.Users.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("[controller]/[action]")]
 	public class UserController : Controller
 	{
 		private readonly IUserService _userService;
