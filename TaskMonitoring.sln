@@ -39,7 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E9BCD6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Users", "TaskMonitoring.Users\TaskMonitoring.Users.csproj", "{40744E56-4093-4110-95AD-CB4A5AF1E498}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.APIClients.Users.Interfaces", "TaskMonitoring.APIClients.Users.Interfaces\TaskMonitoring.APIClients.Users.Interfaces.csproj", "{2DECB422-76C6-4F05-9866-9E04E0B2A295}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.APIClients.Users", "TaskMonitoring.APIClients.Users.Interfaces\TaskMonitoring.APIClients.Users.csproj", "{2DECB422-76C6-4F05-9866-9E04E0B2A295}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.Bootstrap", "TaskMonitoring.Users.Bootstrap\TaskMonitoring.Users.Bootstrap.csproj", "{C042B61A-10DD-4916-8951-FD392A78D34C}"
 EndProject

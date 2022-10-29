@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\TaskMonitoring.APIClients.Users.Interfaces\TaskMonitoring.APIClients.Users.Interfaces.csproj" />
+		<ProjectReference Include="..\TaskMonitoring.APIClients.Users.Interfaces\TaskMonitoring.APIClients.Users.csproj" />
 		<ProjectReference Include="..\TaskMonitoring.Cards.BL.Interface\TaskMonitoring.Cards.BL.Interface.csproj" />
 		<ProjectReference Include="..\TaskMonitoring.Cards.BL\TaskMonitoring.Cards.BL.csproj" />
 		<ProjectReference Include="..\TaskMonitoring.Cards.DataAccess.Interface\TaskMonitoring.Cards.DataAccess.Interface.csproj" />
