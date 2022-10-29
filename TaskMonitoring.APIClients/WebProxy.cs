@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace TaskMonitoring.APIClients
 {
-	public class WebProxy<TRequest, TResponse>
+	public class WebProxy
 	{
-		public async Task<TResponse> GetAsync(string query, TRequest request)
+		public async Task<TResponse> GetAsync<TRequest, TResponse>(string query, TRequest request)
 		{
 			throw new NotImplementedException();
 		}
 
-		public async Task<TResponse> PostAsync(string query, TRequest responce)
+		public async Task<TResponse> PostAsync<TRequest, TResponse>(string query, TRequest responce)
 		{
 			throw new NotImplementedException();
 		}
