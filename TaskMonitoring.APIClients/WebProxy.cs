@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +9,41 @@ namespace TaskMonitoring.APIClients
 {
 	public class WebProxy
 	{
-		public async Task<TResponse> GetAsync<TRequest, TResponse>(string query, TRequest request)
+		private readonly HttpClient client;
+		public WebProxy()
 		{
-			throw new NotImplementedException();
+			client = new HttpClient();
+		}
+		public async Task<TResponse?> GetAsync<TRequest, TResponse>(string query, TRequest request)
+		{
+			try
+			{
+				var response = await client.GetAsync(query);
+				var content = await response.Content.ReadAsStringAsync();
+				return JsonConvert.DeserializeObject<TResponse>(content);
+			}
+			catch(Exception ex)
+			{
+				throw new WebProxyException(ex);
+			}
 		}
 
-		public async Task<TResponse> PostAsync<TRequest, TResponse>(string query, TRequest responce)
+		public async Task<TResponse?> PostAsync<TRequest, TResponse>(string query, TRequest request)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var json = JsonConvert.SerializeObject(request);
+				var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+				var response = await client.PostAsync(query, data);
+				var content = await response.Content.ReadAsStringAsync();
+
+				return JsonConvert.DeserializeObject<TResponse>(content);
+			}
+			catch(Exception ex)
+			{
+				throw new WebProxyException(ex);
+			}
 		}
 
 	}
