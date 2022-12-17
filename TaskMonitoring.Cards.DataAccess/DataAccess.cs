@@ -40,8 +40,7 @@ namespace TaskMonitoring.Cards.DataAccess
 			try
 			{
 				var mappedTask = Util<TaskDataAccessDTO, Task>.Map(task, mappingExpr => mappingExpr
-									.ForMember(dest => dest.Comments, m => m.MapFrom<String2CommentResolver>())
-									.ForMember(dest => dest.User, m => m.MapFrom<UserId2UserResolver>()));
+									.ForMember(dest => dest.Comments, m => m.MapFrom<String2CommentResolver>()));
 
 				_db.Tasks.Add(mappedTask);
 				_db.SaveChanges();
@@ -81,7 +80,7 @@ namespace TaskMonitoring.Cards.DataAccess
 			try
 			{
 				return _db.Tasks.
-					Where(t => t.User.Id == userId).
+					Where(t => t.UserId == userId).
 					Select(t => Util<Task, TaskDataAccessDTO>.Map(t, null)).
 					ToList();
 			}
@@ -101,8 +100,7 @@ namespace TaskMonitoring.Cards.DataAccess
 					throw new ArgumentException($"Task with id {taskId} not found.");
 				}
 				var result = Util<Task, TaskDataAccessDTO>.Map(task, mappingExpr => mappingExpr
-								.ForMember(dest => dest.Comments, m => m.MapFrom<Comment2StringResolver>())
-								.ForMember(dest => dest.UserId, m => m.MapFrom<User2UserIdResolver>()));
+								.ForMember(dest => dest.Comments, m => m.MapFrom<Comment2StringResolver>()));
 				return result;
 			}
 			catch(Exception e)
