@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using TaskMonitoring.Cards.DataAccess.Interface;
 using NSubstitute;
 using TaskMonitoring.Cards.DataAccess.Interface.Exceptions;
+using TaskMonitoring.APIClients.Users.Interfaces;
+using TaskMonitoring.APIClients.Users.Interfaces.DTO;
 
 namespace TaskMonitoring.Cards.UnitTests
 {
@@ -16,14 +18,16 @@ namespace TaskMonitoring.Cards.UnitTests
 	{
 		private ITaskService _taskService;
 		private IDataAccess _dataAccess;
-		
+		private  IWebAPIUsers _webAPIUsers;
+
 		long _userId = 123;
 
 		[SetUp]
 		public void Setup()
 		{
 			_dataAccess = Substitute.For<IDataAccess>();
-			_taskService = new TaskService(_dataAccess);
+			_webAPIUsers = Substitute.For<IWebAPIUsers>();
+			_taskService = new TaskService(_dataAccess, _webAPIUsers);
 		}
 
 		[TearDown]
@@ -52,8 +56,14 @@ namespace TaskMonitoring.Cards.UnitTests
 				Title = "title"
 			};
 
+			var user = new User
+			{
+				Id = _userId
+			};
+
 			long expectedTaskId = 1;
 			_dataAccess.AddTask( expTaskDataAccess).Returns(expectedTaskId);
+			_webAPIUsers.GetUserById(_userId).Returns(user);
 
 			//act
 			var actTask = _taskService.CreateTask(_userId, expTask);

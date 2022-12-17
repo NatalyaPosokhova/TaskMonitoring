@@ -8,7 +8,7 @@ using TaskMonitoring.Utilities;
 namespace TaskMonitoring.Users.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("[controller]/[action]")]
 	public class UserController : Controller
 	{
 		private readonly IUserService _userService;
@@ -58,6 +58,21 @@ namespace TaskMonitoring.Users.Controllers
 			{
 				_userService.DeleteUser(id);
 				return new OkResult();
+			}
+			catch(Exception)
+			{
+				return new StatusCodeResult(500);
+			}
+		}
+
+		[HttpGet]
+		public IActionResult GetUserById(long userId)
+		{
+			try
+			{
+				var userDTO = _userService.GetUserById(userId);
+				var user = Util<UserDTO, User>.Map(userDTO);
+				return new ObjectResult(user);
 			}
 			catch(Exception)
 			{

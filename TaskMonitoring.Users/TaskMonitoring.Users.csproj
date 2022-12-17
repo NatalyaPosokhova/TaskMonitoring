@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TaskMonitoring.Users.Bootstrap\TaskMonitoring.Users.Bootstrap.csproj" />
     <ProjectReference Include="..\TaskMonitoring.Utils\TaskMonitoring.Utilities.csproj" />
     <ProjectReference Include="..\Users microservice\TaskMonitoring.Users.BL.Interface\TaskMonitoring.Users.BL.Interface.csproj" />
     <ProjectReference Include="..\Users microservice\TaskMonitoring.Users.BL\TaskMonitoring.Users.BL.csproj" />

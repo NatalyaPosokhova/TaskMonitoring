@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -11,16 +11,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\TaskMonitoring.APIClients.Users.Interfaces\TaskMonitoring.APIClients.Users.csproj" />
 		<ProjectReference Include="..\TaskMonitoring.Cards.BL.Interface\TaskMonitoring.Cards.BL.Interface.csproj" />
 		<ProjectReference Include="..\TaskMonitoring.Cards.BL\TaskMonitoring.Cards.BL.csproj" />
 		<ProjectReference Include="..\TaskMonitoring.Cards.DataAccess.Interface\TaskMonitoring.Cards.DataAccess.Interface.csproj" />
 		<ProjectReference Include="..\TaskMonitoring.Cards.DataAccess\TaskMonitoring.Cards.DataAccess.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="appsettings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 
 </Project>

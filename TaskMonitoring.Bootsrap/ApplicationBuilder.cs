@@ -5,6 +5,7 @@ using TaskMonitoring.Cards.BL.Interface;
 using TaskMonitoring.Cards.DataAccess;
 using TaskMonitoring.Cards.DataAccess.Interface;
 using TaskMonitoring.Utilities;
+using TaskMonitoring.APIClients.Users.Interfaces;
 
 namespace TaskMonitoring.Bootsrap
 {
@@ -15,6 +16,7 @@ namespace TaskMonitoring.Bootsrap
 			services.AddTransient<IDataAccess, DataAccess>();
 			services.AddTransient<ITaskService, TaskService>();
 			services.AddScoped<ContextFactory<TaskDbContext>>();
+			services.AddScoped<IWebAPIUsers, WebAPIUsers>();
 		}
 	}
 }
