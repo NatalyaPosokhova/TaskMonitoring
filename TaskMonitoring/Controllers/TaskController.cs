@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using TaskMonitoring.Cards.BL.Exceptions;
 using TaskMonitoring.Cards.BL.Interface;
 using TaskMonitoring.Cards.BL.Interface.DTO;
@@ -19,7 +20,7 @@ namespace TaskMonitoring.Cards.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult CreateTask(long userId, NewTaskCard task)
+		public async Task<IActionResult> CreateTask(long userId, NewTaskCard task)
 		{
 			try
 			{ 
@@ -28,7 +29,8 @@ namespace TaskMonitoring.Cards.Controllers
 					return new StatusCodeResult(422);
 				}
 				var mappedTask = Util<NewTaskCard, TaskDTO>.Map(task);
-				var createdTask = _taskService.CreateTask(userId, mappedTask);
+				var createdTask = await _taskService.CreateTask(userId, mappedTask);
+
 				return new ObjectResult(createdTask);
 			}
 			catch(CannotCreateTaskException)

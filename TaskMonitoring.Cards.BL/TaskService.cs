@@ -8,6 +8,7 @@ using System.Linq;
 using TaskMonitoring.Utilities;
 using TaskMonitoring.APIClients.Users.Interfaces;
 using System.Threading.Tasks;
+using System;
 
 namespace TaskMonitoring.Cards.BL
 {
@@ -43,8 +44,14 @@ namespace TaskMonitoring.Cards.BL
 				{
 					task.UserId = user.Id;
 					var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
+
 					var taskId = _data.AddTask(mappedTask);
 					task.Id = taskId;
+
+					var comment = $"Задача создана {DateTime.Now}";
+					task.Comments = new List<string>{comment};
+					_data.AddComment(taskId, comment);
+
 					return task;
 				}
 				return null;
