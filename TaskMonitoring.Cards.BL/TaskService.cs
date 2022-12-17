@@ -7,6 +7,7 @@ using TaskMonitoring.Cards.BL.Exceptions;
 using System.Linq;
 using TaskMonitoring.Utilities;
 using TaskMonitoring.APIClients.Users.Interfaces;
+using System.Threading.Tasks;
 
 namespace TaskMonitoring.Cards.BL
 {
@@ -33,13 +34,14 @@ namespace TaskMonitoring.Cards.BL
 			}
 		}
 
-		public TaskDTO CreateTask(long userId, TaskDTO task)
+		public async Task<TaskDTO> CreateTask(long userId, TaskDTO task)
 		{
 			try
 			{
-				if(_webAPIUsers.GetUserById(userId) != null)
+				var user = await _webAPIUsers.GetUserById(userId);
+				if(user != null)
 				{
-					task.UserId = userId;
+					task.UserId = user.Id;
 					var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
 					var taskId = _data.AddTask(mappedTask);
 					task.Id = taskId;

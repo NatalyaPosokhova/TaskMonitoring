@@ -9,12 +9,12 @@ namespace TaskMonitoring.APIClients.Users.Interfaces
 {
 	public class WebAPIUsers : WebProxy, IWebAPIUsers
 	{
-		public async Task<User> GetUserById(long Id)
+		public async Task<User> GetUserById(long id)
 		{
 			try
 			{
-				string query = $"/api/User/GetUserById/";
-				return await GetAsync<long, User>(query, Id);
+				string query = $"http://localhost:5185/User/GetUserById";
+				return await GetAsync<User>(query, new { userId = id });
 			}
 			catch(HttpRequestException e)
 			{

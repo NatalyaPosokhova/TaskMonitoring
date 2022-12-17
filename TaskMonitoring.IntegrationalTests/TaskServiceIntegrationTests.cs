@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TaskMonitoring.APIClients.Users.Interfaces;
+using System.Threading.Tasks;
 
 namespace TaskMonitoring.IntegrationalTests
 {
@@ -48,11 +49,11 @@ namespace TaskMonitoring.IntegrationalTests
 		}
 
 		[Test]
-		public void CreateNewTaskShouldBeSuccess()
+		public async Task CreateNewTaskShouldBeSuccess()
 		{
 			//arrange
 			//actual
-			var act = _service.CreateTask(_userId, _task);
+			var act = await _service.CreateTask(_userId, _task);
 			var expectedTask = _dataAccess.GetTaskById(act.Id);
 
 			//assert
@@ -64,13 +65,13 @@ namespace TaskMonitoring.IntegrationalTests
 		}
 
 		[Test]
-		public void AddCommentForExistedTaskShouldBeSuccess()
+		public async Task AddCommentForExistedTaskShouldBeSuccess()
 		{
 			//arrange
 			var comment = "comment2";
 
 			//actual
-			var actTask = _service.CreateTask(_userId, _task);
+			var actTask = await _service.CreateTask(_userId, _task);
 			_service.AddComment(_task.Id, comment);
 
 			var actComments = _dataAccess.GetTaskById(actTask.Id).Comments;
@@ -92,7 +93,7 @@ namespace TaskMonitoring.IntegrationalTests
 
 		[Test]
 		//[Ignore("Temporary off")]
-		public void UpdateTaskShouldBeSuccess()
+		public async Task UpdateTaskShouldBeSuccess()
 		{
 			//arrange
 			var updatedTask = new TaskDTO
@@ -105,7 +106,7 @@ namespace TaskMonitoring.IntegrationalTests
 			};
 
 			//actual
-			_ =  _service.CreateTask(_userId, _task);
+			_ = await _service.CreateTask(_userId, _task);
 			_service.UpdateTask(updatedTask);
 
 			var expectedTask = Util<TaskDataAccessDTO, TaskDTO>.Map(_dataAccess.GetTaskById(_taskId));
@@ -115,11 +116,11 @@ namespace TaskMonitoring.IntegrationalTests
 		}
 
 		[Test]
-		public void DeleteTaskShouldBeSuccess()
+		public async Task DeleteTaskShouldBeSuccess()
 		{
 			//arrange
 			//actual
-			var actTask = _service.CreateTask(_userId, _task);
+			var actTask = await _service.CreateTask(_userId, _task);
 			_service.DeleteTaskById(_taskId);
 
 			//assert

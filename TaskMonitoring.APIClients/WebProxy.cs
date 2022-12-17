@@ -14,11 +14,13 @@ namespace TaskMonitoring.APIClients
 		{
 			client = new HttpClient();
 		}
-		public async Task<TResponse?> GetAsync<TRequest, TResponse>(string query, TRequest request)
+		public async Task<TResponse> GetAsync<TResponse>(string url, object request)
 		{
 			try
 			{
-				var response = await client.GetAsync(query);
+				var query = GetQueryFromObject(request);
+				url += query;
+				var response = await client.GetAsync(url);
 				var content = await response.Content.ReadAsStringAsync();
 				return JsonConvert.DeserializeObject<TResponse>(content);
 			}
@@ -28,14 +30,14 @@ namespace TaskMonitoring.APIClients
 			}
 		}
 
-		public async Task<TResponse?> PostAsync<TRequest, TResponse>(string query, TRequest request)
+		public async Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest request)
 		{
 			try
 			{
 				var json = JsonConvert.SerializeObject(request);
 				var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-				var response = await client.PostAsync(query, data);
+				var response = await client.PostAsync(url, data);
 				var content = await response.Content.ReadAsStringAsync();
 
 				return JsonConvert.DeserializeObject<TResponse>(content);
@@ -46,5 +48,16 @@ namespace TaskMonitoring.APIClients
 			}
 		}
 
+		private string GetQueryFromObject(object request)
+		{
+			if(request == null)
+				return "";
+
+			var properties = request.GetType().GetProperties()
+			//var fields = request.GetType().GetFields()			
+			.Select(p => $"{p.Name}={Convert.ToString(p.GetValue(request))}");
+
+			return "?" + string.Join('&', properties);
+		}
 	}
 }
