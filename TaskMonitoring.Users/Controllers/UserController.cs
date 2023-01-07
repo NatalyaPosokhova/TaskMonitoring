@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using TaskMonitoring.Users.BL.Interface;
 using TaskMonitoring.Users.BL.Interface.DTO;
 using TaskMonitoring.Users.Data;
@@ -18,11 +19,11 @@ namespace TaskMonitoring.Users.Controllers
 		}
 		
 		[HttpPost]
-		public IActionResult CreateUser(string login, string password)
+		public IActionResult CreateUser(CreateUserDTO createUserDto)
 		{
 			try
 			{
-				var userDto = _userService.CreateUser(login, password);
+				var userDto = _userService.CreateUser(createUserDto.Login, createUserDto.Password);
 				var user = Util<UserDTO, User>.Map(userDto);
 
 				return new ObjectResult(user);
@@ -38,11 +39,11 @@ namespace TaskMonitoring.Users.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult UpdateUserPassword(long id, string newPassword)
+		public IActionResult UpdateUserPassword(UpdateUserPasswordDTO updateUserPasswordDto)
 		{
 			try
 			{
-				_userService.UpdateUserPassword(id, newPassword);
+				_userService.UpdateUserPassword(updateUserPasswordDto.Id, updateUserPasswordDto.NewPassword);
 				return new OkResult();
 			}
 			catch(Exception)
@@ -52,11 +53,11 @@ namespace TaskMonitoring.Users.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult DeleteUser(long id)
+		public IActionResult DeleteUser(DeleteUserDTO deleteUserDTO)
 		{
 			try
 			{
-				_userService.DeleteUser(id);
+				_userService.DeleteUser(deleteUserDTO.Id);
 				return new OkResult();
 			}
 			catch(Exception)
