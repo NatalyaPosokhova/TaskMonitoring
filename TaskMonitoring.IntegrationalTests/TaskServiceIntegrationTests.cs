@@ -20,13 +20,13 @@ namespace TaskMonitoring.IntegrationalTests
 		private ITaskService _service;
 		private IDataAccess _dataAccess;
 		private IWebAPIUsers _webAPIUsers;
-		const long _userId = 1;
+		private long _userId;
 		long _taskId = 123;
 		private TaskDbContext _db;
 		TaskDTO _task;
 
 		[SetUp]
-		public void SetUp()
+		public async Task SetUp()
 		{
 			_db = new ContextFactory<TaskDbContext>().CreateDbContext(null);
 			_dataAccess = new DataAccess(_db);
@@ -39,13 +39,22 @@ namespace TaskMonitoring.IntegrationalTests
 				Summary = "summary",
 				Title = "title"
 			};
+
+			var user = await _webAPIUsers.CreateUser("login", "password");
+			_userId = user.Id;
+		}
+
+		[OneTimeTearDown]
+		public async Task OneTimeTearDown()
+		{
+			await _webAPIUsers.DeleteUser(_userId);
 		}
 
 		[TearDown]
 		public void TearDown()
 		{
 			_db.Database.ExecuteSqlInterpolated($"DELETE FROM \"Tasks\" Where \"Id\" = {_taskId}");
-			_db.Database.ExecuteSqlInterpolated($"DELETE FROM \"Users\" Where \"Id\" = {_userId}");
+			//_db.Database.ExecuteSqlInterpolated($"DELETE FROM \"Users\" Where \"Id\" = {_userId}");
 		}
 
 		[Test]
@@ -53,15 +62,11 @@ namespace TaskMonitoring.IntegrationalTests
 		{
 			//arrange
 			//actual
-			var act = await _service.CreateTask(_userId, _task);
-			var expectedTask = _dataAccess.GetTaskById(act.Id);
+			var actTask = await _service.CreateTask(_userId, _task);
+			var expectedTask = Util<TaskDataAccessDTO,TaskDTO>.Map(_dataAccess.GetTaskById(actTask.Id));
 
 			//assert
-			Assert.AreEqual(expectedTask.Id, act.Id);
-			Assert.AreEqual(expectedTask.Comments, act.Comments);
-			Assert.AreEqual(expectedTask.Summary, act.Summary);
-			Assert.AreEqual(expectedTask.Title, act.Title);
-			Assert.AreEqual(expectedTask.UserId, act.UserId);
+			Assert.AreEqual(expectedTask, actTask);
 		}
 
 		[Test]

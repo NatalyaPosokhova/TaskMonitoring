@@ -39,7 +39,7 @@ namespace TaskMonitoring.Users.DataAccess
 		{
 			try
 			{
-				_db.Database.ExecuteSqlInterpolated($"DELETE FROM Users WHERE Id = {id}");
+				_db.Database.ExecuteSqlInterpolated($"DELETE FROM public.\"Users\" WHERE \"Id\" = {id}");
 				_db.SaveChanges();
 			}
 			catch(Exception ex)
