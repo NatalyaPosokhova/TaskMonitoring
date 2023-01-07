@@ -43,24 +43,28 @@ namespace TaskMonitoring.Cards.BL
 				if(user != null)
 				{
 					task.UserId = user.Id;
-					var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
+					AddDefaultComment(task);
 
+					var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
 					var taskId = _data.AddTask(mappedTask);
 					task.Id = taskId;
-
-					var comment = $"Задача создана {DateTime.Now}";
-					task.Comments = new List<string>{comment};
-					_data.AddComment(taskId, comment);
 
 					return task;
 				}
 				return null;
 			}
-			catch(System.Exception ex)
+			catch(Exception ex)
 			{
 				throw new CannotCreateTaskException("Не удалось создать задачу.", ex);
 			}
 
+		}
+
+		private static void AddDefaultComment(TaskDTO task)
+		{
+			var comment = $"Задача создана {DateTime.Now}";
+			task.Comments ??= new List<string>();
+			task.Comments.Add(comment);
 		}
 
 		public void DeleteTaskById(long taskId)

@@ -30,7 +30,7 @@ namespace TaskMonitoring.APIClients
 			}
 		}
 
-		public async Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest request)
+		public async Task<TResponse> PostAsync<TResponse>(string url, object request)
 		{
 			try
 			{
