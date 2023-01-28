@@ -14,4 +14,10 @@
     <PackageReference Include="coverlet.collector" Version="3.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TaskMonitoring.Timing.BL.Interface\TaskMonitoring.Timing.BL.Interface.csproj" />
+    <ProjectReference Include="..\TaskMonitoring.Timing.BL\TaskMonitoring.Timing.BL.csproj" />
+    <ProjectReference Include="..\TaskMonitoring.Timing.DataAccess.Interface\TaskMonitoring.Timing.DataAccess.Interface.csproj" />
+  </ItemGroup>
+
 </Project>
