@@ -39,11 +39,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E9BCD6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Users", "TaskMonitoring.Users\TaskMonitoring.Users.csproj", "{40744E56-4093-4110-95AD-CB4A5AF1E498}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.APIClients.Users", "TaskMonitoring.APIClients.Users.Interfaces\TaskMonitoring.APIClients.Users.csproj", "{2DECB422-76C6-4F05-9866-9E04E0B2A295}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.APIClients.Users", "TaskMonitoring.APIClients.Users.Interfaces\TaskMonitoring.APIClients.Users.csproj", "{2DECB422-76C6-4F05-9866-9E04E0B2A295}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Users.Bootstrap", "TaskMonitoring.Users.Bootstrap\TaskMonitoring.Users.Bootstrap.csproj", "{C042B61A-10DD-4916-8951-FD392A78D34C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.Users.Bootstrap", "TaskMonitoring.Users.Bootstrap\TaskMonitoring.Users.Bootstrap.csproj", "{C042B61A-10DD-4916-8951-FD392A78D34C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.APIClients", "TaskMonitoring.APIClients\TaskMonitoring.APIClients.csproj", "{07F80BC5-9935-4E66-B4CA-3B7259DA4B50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMonitoring.APIClients", "TaskMonitoring.APIClients\TaskMonitoring.APIClients.csproj", "{07F80BC5-9935-4E66-B4CA-3B7259DA4B50}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Time microservice", "Time microservice", "{2BA7BB33-CA65-4CCA-9964-0CBFB74CE0E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Timing", "Time microservice\TaskMonitoring.Timing\TaskMonitoring.Timing.csproj", "{45221802-2128-4E1F-9800-B7D0BEE03689}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Timing.BL.Interface", "Time microservice\TaskMonitoring.Timing.BL.Interface\TaskMonitoring.Timing.BL.Interface.csproj", "{27CF5FA9-B6C4-45F4-9E91-FE4C3DEC4924}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Timing.BL", "Time microservice\TaskMonitoring.Timing.BL\TaskMonitoring.Timing.BL.csproj", "{8A49BC05-1F41-4073-94AD-9D4F9CFEC682}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Timing.DataAccess.Interface", "Time microservice\TaskMonitoring.Timing.DataAccess.Interface\TaskMonitoring.Timing.DataAccess.Interface.csproj", "{84D447DA-C0C1-4191-BBC9-5486E9B5C872}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Timing.DataAccess", "Time microservice\TaskMonitoring.Timing.DataAccess\TaskMonitoring.Timing.DataAccess.csproj", "{E04D52AE-9598-48BC-A6AE-846B941D078F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Timing.UnitTests", "Time microservice\TaskMonitoring.Timing.UnitTests\TaskMonitoring.Timing.UnitTests.csproj", "{A2251EF5-D534-4D4D-8768-2F10011C1E19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Bootstrap", "Time microservice\TaskMonitoring.Bootstrap\TaskMonitoring.Bootstrap.csproj", "{FF00F450-A23C-4F18-AC69-8AEB203F1E2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +139,34 @@ Global
 		{07F80BC5-9935-4E66-B4CA-3B7259DA4B50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07F80BC5-9935-4E66-B4CA-3B7259DA4B50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07F80BC5-9935-4E66-B4CA-3B7259DA4B50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45221802-2128-4E1F-9800-B7D0BEE03689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45221802-2128-4E1F-9800-B7D0BEE03689}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45221802-2128-4E1F-9800-B7D0BEE03689}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45221802-2128-4E1F-9800-B7D0BEE03689}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27CF5FA9-B6C4-45F4-9E91-FE4C3DEC4924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27CF5FA9-B6C4-45F4-9E91-FE4C3DEC4924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27CF5FA9-B6C4-45F4-9E91-FE4C3DEC4924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27CF5FA9-B6C4-45F4-9E91-FE4C3DEC4924}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A49BC05-1F41-4073-94AD-9D4F9CFEC682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A49BC05-1F41-4073-94AD-9D4F9CFEC682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A49BC05-1F41-4073-94AD-9D4F9CFEC682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A49BC05-1F41-4073-94AD-9D4F9CFEC682}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84D447DA-C0C1-4191-BBC9-5486E9B5C872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84D447DA-C0C1-4191-BBC9-5486E9B5C872}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84D447DA-C0C1-4191-BBC9-5486E9B5C872}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84D447DA-C0C1-4191-BBC9-5486E9B5C872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E04D52AE-9598-48BC-A6AE-846B941D078F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E04D52AE-9598-48BC-A6AE-846B941D078F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E04D52AE-9598-48BC-A6AE-846B941D078F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E04D52AE-9598-48BC-A6AE-846B941D078F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2251EF5-D534-4D4D-8768-2F10011C1E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2251EF5-D534-4D4D-8768-2F10011C1E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2251EF5-D534-4D4D-8768-2F10011C1E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2251EF5-D534-4D4D-8768-2F10011C1E19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF00F450-A23C-4F18-AC69-8AEB203F1E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF00F450-A23C-4F18-AC69-8AEB203F1E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF00F450-A23C-4F18-AC69-8AEB203F1E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF00F450-A23C-4F18-AC69-8AEB203F1E2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,6 +190,13 @@ Global
 		{2DECB422-76C6-4F05-9866-9E04E0B2A295} = {E9BCD641-D8F9-4C08-B6F8-7A8F2435EF52}
 		{C042B61A-10DD-4916-8951-FD392A78D34C} = {C28CAF73-CBBB-4E89-ABB7-F73286B94196}
 		{07F80BC5-9935-4E66-B4CA-3B7259DA4B50} = {E9BCD641-D8F9-4C08-B6F8-7A8F2435EF52}
+		{45221802-2128-4E1F-9800-B7D0BEE03689} = {2BA7BB33-CA65-4CCA-9964-0CBFB74CE0E1}
+		{27CF5FA9-B6C4-45F4-9E91-FE4C3DEC4924} = {2BA7BB33-CA65-4CCA-9964-0CBFB74CE0E1}
+		{8A49BC05-1F41-4073-94AD-9D4F9CFEC682} = {2BA7BB33-CA65-4CCA-9964-0CBFB74CE0E1}
+		{84D447DA-C0C1-4191-BBC9-5486E9B5C872} = {2BA7BB33-CA65-4CCA-9964-0CBFB74CE0E1}
+		{E04D52AE-9598-48BC-A6AE-846B941D078F} = {2BA7BB33-CA65-4CCA-9964-0CBFB74CE0E1}
+		{A2251EF5-D534-4D4D-8768-2F10011C1E19} = {2BA7BB33-CA65-4CCA-9964-0CBFB74CE0E1}
+		{FF00F450-A23C-4F18-AC69-8AEB203F1E2B} = {2BA7BB33-CA65-4CCA-9964-0CBFB74CE0E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD6FE827-0768-4255-BF22-C8863BDC0F4B}
