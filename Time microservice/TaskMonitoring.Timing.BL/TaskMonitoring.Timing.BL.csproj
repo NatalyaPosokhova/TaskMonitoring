@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TaskMonitoring.Timing.BL.Interface\TaskMonitoring.Timing.BL.Interface.csproj" />
+  </ItemGroup>
+
 </Project>
