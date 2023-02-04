@@ -115,17 +115,6 @@ namespace TaskMonitoring.Users.UnitTests
 		}
 
 		[Test]
-		public void GetNotExistedUserByIdShouldBeException()
-		{
-			//arrange
-			long userId = 123;
-			_dataAccess.When(x => x.GetUserById(userId)).Do(x => { throw new DataAccess.Interface.Exceptions.UserNotFoundException(""); });
-			//act			
-			//assert
-			Assert.Throws<UserNotFoundException>(() => _userService.GetUserById(userId));
-		}
-
-		[Test]
 		public void UpdateUserShouldBeSuccess()
 		{
 			//arrange

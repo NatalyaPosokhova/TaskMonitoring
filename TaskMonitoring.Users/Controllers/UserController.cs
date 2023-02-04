@@ -32,9 +32,9 @@ namespace TaskMonitoring.Users.Controllers
 			{
 				return new BadRequestObjectResult(new { err = ex.Message, innerException = ex.InnerException });
 			}
-			catch(Exception)
+			catch(Exception ex)
 			{
-				return new StatusCodeResult(500);
+				return StatusCode(500, ex.Message);
 			}
 		}
 
