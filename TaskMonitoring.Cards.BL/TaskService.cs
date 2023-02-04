@@ -23,12 +23,10 @@ namespace TaskMonitoring.Cards.BL
 			_webAPIUsers = webAPIUsers;
 		}
 
-		public async Task AddComment(long userId, long taskId, string comment)
+		public void AddComment(long taskId, string comment)
 		{
 			try
 			{
-				var user = await _webAPIUsers.GetUserById(userId);
-
 				_data.AddComment(taskId, comment);
 			}
 			catch (CannotAddCommentException ex)
