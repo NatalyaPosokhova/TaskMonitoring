@@ -23,10 +23,14 @@ namespace TaskMonitoring.Cards.BL
 			_webAPIUsers = webAPIUsers;
 		}
 
-		public void AddComment(long taskId, string comment)
+		public async Task AddComment(long userId, long taskId, string comment)
 		{
 			try
 			{
+				var user = await _webAPIUsers.GetUserById(userId);
+				if(user == null)
+					throw new UserNotFoundException($"Пользователя с id = {userId} не существует.");
+
 				_data.AddComment(taskId, comment);
 			}
 			catch (CannotAddCommentException ex)
@@ -39,19 +43,15 @@ namespace TaskMonitoring.Cards.BL
 		{
 			try
 			{
-				var user = await _webAPIUsers.GetUserById(userId);
-				if(user != null)
-				{
-					task.UserId = user.Id;
-					AddDefaultComment(task);
+				var user = await CheckIfUserExists(userId);
+				task.UserId = user.Id;
+				AddDefaultComment(task);
 
-					var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
-					var taskId = _data.AddTask(mappedTask);
-					task.Id = taskId;
+				var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
+				var taskId = _data.AddTask(mappedTask);
+				task.Id = taskId;
 
 					return task;
-				}
-				return null;
 			}
 			catch(Exception ex)
 			{
@@ -67,10 +67,11 @@ namespace TaskMonitoring.Cards.BL
 			task.Comments.Add(comment);
 		}
 
-		public void DeleteTaskById(long taskId)
+		public async Task DeleteTaskById(long userId, long taskId)
 		{
 			try
 			{
+				await CheckIfUserExists(userId);
 				_data?.DeleteTask(taskId);
 			}
 			catch (CannotDeleteTaskException ex)
@@ -79,15 +80,40 @@ namespace TaskMonitoring.Cards.BL
 			}
 		}
 
-		public IEnumerable<TaskDTO> GetAllTasks(long userId)
+		public async Task<IEnumerable<TaskDTO>> GetAllTasks(long userId)
 		{
-			return _data?.GetAllTasksByUserId(userId)?.Select(task => Util<TaskDataAccessDTO, TaskDTO>.Map(task));
+			try
+			{
+				await CheckIfUserExists(userId);
+				return _data?.GetAllTasksByUserId(userId)?.Select(task => Util<TaskDataAccessDTO, TaskDTO>.Map(task));
+			}
+			catch(Exception ex)
+			{
+				throw new CannotGetUserTasksException(ex.Message, ex);
+			}
 		}
 
-		public void UpdateTask(TaskDTO task)
+		public async Task UpdateTask(long userId, TaskDTO task)
 		{
-			var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
-			_data.UpdateTask(mappedTask);			
+			try
+			{
+				await CheckIfUserExists(userId);
+				var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
+				_data.UpdateTask(mappedTask);
+			}
+			catch(Exception ex)
+			{
+				throw new Exceptions.CannotUpdateTaskException(ex.Message, ex);
+			}
+		}
+
+		private async Task<APIClients.Users.Interfaces.DTO.User> CheckIfUserExists(long userId)
+		{			
+			var user = await _webAPIUsers.GetUserById(userId);
+			if(user == null)
+				throw new UserNotFoundException($"Пользователя с id = {userId} не существует.");
+
+			return user;
 		}
 	}
 }

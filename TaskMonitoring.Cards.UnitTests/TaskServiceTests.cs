@@ -11,6 +11,7 @@ using NSubstitute;
 using TaskMonitoring.Cards.DataAccess.Interface.Exceptions;
 using TaskMonitoring.APIClients.Users.Interfaces;
 using TaskMonitoring.APIClients.Users.Interfaces.DTO;
+using System.Threading.Tasks;
 
 namespace TaskMonitoring.Cards.UnitTests
 {
@@ -31,10 +32,10 @@ namespace TaskMonitoring.Cards.UnitTests
 		}
 
 		[TearDown]
-		public void ClearUserTasks()
+		public async Task ClearUserTasks()
 		{
-			var tasks = _taskService.GetAllTasks(_userId);
-			tasks.ToList().ForEach(task => _taskService.DeleteTaskById(task.Id));
+			var tasks = await _taskService.GetAllTasks(_userId);
+			tasks.ToList().ForEach(async task => await _taskService.DeleteTaskById(_userId, task.Id));
 		}
 
 		[Test]
@@ -73,13 +74,13 @@ namespace TaskMonitoring.Cards.UnitTests
 		}
 
 		[Test]
-		public void DeleteTaskShouldBeSuccess()
+		public async Task DeleteTaskShouldBeSuccess()
 		{
 			//arrange
 			var taskId = 111;
 
 			//act
-			_taskService.DeleteTaskById(taskId);
+			await _taskService.DeleteTaskById(_userId, taskId);
 
 			//assert
 			_dataAccess.Received().DeleteTask(taskId);
@@ -95,18 +96,18 @@ namespace TaskMonitoring.Cards.UnitTests
 
 			//act
 			//assert
-			Assert.Throws<BL.Exceptions.TaskNotFoundException>(() => _taskService.DeleteTaskById(taskId));
+			Assert.Throws<BL.Exceptions.TaskNotFoundException>(async () => await _taskService.DeleteTaskById(_userId, taskId));
 		}
 
 		[Test]
-		public void AddCommentToTaskShouldBeSuccess()
+		public async Task AddCommentToTaskShouldBeSuccessAsync()
 		{
 			//arrange
 			long taskId = 123;
 			string comment2 = "comment2";
 
 			//act
-			_taskService.AddComment(taskId, comment2);
+			await _taskService.AddComment(_userId, taskId, comment2);
 
 			//assert
 			_dataAccess.Received().AddComment(taskId, comment2);
@@ -122,7 +123,7 @@ namespace TaskMonitoring.Cards.UnitTests
 
 			//act
 			//assert
-			Assert.Throws<BL.Exceptions.TaskNotFoundException>(() => _taskService.AddComment(taskId, "test"));
+			Assert.Throws<BL.Exceptions.TaskNotFoundException>(async () => await _taskService.AddComment(_userId, taskId, "test"));
 		}
 	}
 }

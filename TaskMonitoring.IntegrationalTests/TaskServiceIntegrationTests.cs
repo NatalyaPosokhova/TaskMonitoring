@@ -77,7 +77,7 @@ namespace TaskMonitoring.IntegrationalTests
 
 			//actual
 			var actTask = await _service.CreateTask(_userId, _task);
-			_service.AddComment(_task.Id, comment);
+			await _service.AddComment(_userId, _task.Id, comment);
 
 			var actComments = _dataAccess.GetTaskById(actTask.Id).Comments;
 
@@ -93,7 +93,7 @@ namespace TaskMonitoring.IntegrationalTests
 
 			//actual
 			//assert
-			Assert.Throws<Cards.BL.Exceptions.TaskNotFoundException>(() => _service.AddComment(111, comment));
+			Assert.Throws<Cards.BL.Exceptions.TaskNotFoundException>(async () => await _service.AddComment(_userId, 111, comment));
 		}
 
 		[Test]
@@ -112,7 +112,7 @@ namespace TaskMonitoring.IntegrationalTests
 
 			//actual
 			_ = await _service.CreateTask(_userId, _task);
-			_service.UpdateTask(updatedTask);
+			await _service.UpdateTask(_userId, updatedTask);
 
 			var expectedTask = Util<TaskDataAccessDTO, TaskDTO>.Map(_dataAccess.GetTaskById(_taskId));
 
@@ -126,7 +126,7 @@ namespace TaskMonitoring.IntegrationalTests
 			//arrange
 			//actual
 			var actTask = await _service.CreateTask(_userId, _task);
-			_service.DeleteTaskById(_taskId);
+			await _service.DeleteTaskById(_userId, _taskId);
 
 			//assert
 			Assert.Throws<CannotGetTaskException>(() => _dataAccess.GetTaskById(_taskId), "Task with id 123 not found.");

@@ -59,16 +59,13 @@ namespace TaskMonitoring.Users.DataAccess
 			try
 			{
 				user = _db.Users.Where(user => user.Id == id).FirstOrDefault();
+				return user;
 			}
 			catch(Exception ex)
 			{
 				throw new CannotGetUserException($"Не удалось получить пользователя из базы данных с id = {id}", ex);
 			}
 
-			if(user == null)
-				throw new UserNotFoundException($"Пользователя c id = {id} не существует.");
-
-			return user;
 		}
 
 		public void UpdateUser(User user)

@@ -71,13 +71,13 @@ namespace TaskMonitoring.Users.BL
 				var user = _dataAccess.GetUserById(id);
 				return Util<User, UserDTO>.Map(user);
 			}
-			catch(DataAccess.Interface.Exceptions.UserNotFoundException ex)
-			{
-				throw new UserNotFoundException("");
-			}
+			//catch(DataAccess.Interface.Exceptions.UserNotFoundException ex)
+			//{
+			//	throw new UserNotFoundException(ex.Message);
+			//}
 			catch(Exception ex)
 			{
-				throw new CannotGetUserException("");
+				throw new CannotGetUserException(ex.Message);
 			}
 		}
 

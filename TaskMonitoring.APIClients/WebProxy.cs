@@ -21,6 +21,8 @@ namespace TaskMonitoring.APIClients
 				var query = GetQueryFromObject(request);
 				url += query;
 				var response = await client.GetAsync(url);
+				response.EnsureSuccessStatusCode();
+
 				var content = await response.Content.ReadAsStringAsync();
 				return JsonConvert.DeserializeObject<TResponse>(content);
 			}
