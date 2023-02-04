@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Timing.UnitT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.Bootstrap", "Time microservice\TaskMonitoring.Bootstrap\TaskMonitoring.Bootstrap.csproj", "{FF00F450-A23C-4F18-AC69-8AEB203F1E2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMonitoring.APIClients.Tasks", "TaskMonitoring.APIClients.Tasks\TaskMonitoring.APIClients.Tasks.csproj", "{82E5C0FD-6834-4748-9D81-708FA6F72A3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +169,10 @@ Global
 		{FF00F450-A23C-4F18-AC69-8AEB203F1E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF00F450-A23C-4F18-AC69-8AEB203F1E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF00F450-A23C-4F18-AC69-8AEB203F1E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82E5C0FD-6834-4748-9D81-708FA6F72A3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82E5C0FD-6834-4748-9D81-708FA6F72A3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82E5C0FD-6834-4748-9D81-708FA6F72A3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82E5C0FD-6834-4748-9D81-708FA6F72A3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,6 +203,7 @@ Global
 		{E04D52AE-9598-48BC-A6AE-846B941D078F} = {2BA7BB33-CA65-4CCA-9964-0CBFB74CE0E1}
 		{A2251EF5-D534-4D4D-8768-2F10011C1E19} = {2BA7BB33-CA65-4CCA-9964-0CBFB74CE0E1}
 		{FF00F450-A23C-4F18-AC69-8AEB203F1E2B} = {2BA7BB33-CA65-4CCA-9964-0CBFB74CE0E1}
+		{82E5C0FD-6834-4748-9D81-708FA6F72A3F} = {E9BCD641-D8F9-4C08-B6F8-7A8F2435EF52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD6FE827-0768-4255-BF22-C8863BDC0F4B}
