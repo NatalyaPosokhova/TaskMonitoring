@@ -55,15 +55,20 @@ namespace TaskMonitoring.Users.DataAccess
 
 		public User GetUserById(long id)
 		{
+			User user;
 			try
 			{
-				var user = _db.Users.Where(user => user.Id == id).FirstOrDefault();
-				return user;
+				user = _db.Users.Where(user => user.Id == id).FirstOrDefault();
 			}
 			catch(Exception ex)
 			{
-				throw new CannotGetUserException($"Невозможно получить пользователя из базы данных с id = {id}", ex);
+				throw new CannotGetUserException($"Не удалось получить пользователя из базы данных с id = {id}", ex);
 			}
+
+			if(user == null)
+				throw new UserNotFoundException($"Пользователя c id = {id} не существует.");
+
+			return user;
 		}
 
 		public void UpdateUser(User user)
