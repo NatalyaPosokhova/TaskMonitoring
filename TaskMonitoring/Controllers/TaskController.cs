@@ -9,7 +9,7 @@ using TaskMonitoring.Utilities;
 
 namespace TaskMonitoring.Cards.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("[controller]/[action]")]
 	[ApiController]
 	public class TaskController : ControllerBase
 	{
