@@ -75,9 +75,9 @@ namespace TaskMonitoring.Users.Controllers
 				var user = Util<UserDTO, User>.Map(userDTO);
 				return new ObjectResult(user);
 			}
-			catch(Exception)
+			catch(Exception ex)
 			{
-				return new StatusCodeResult(500);
+				return StatusCode(500, ex);
 			}
 		}
 	}

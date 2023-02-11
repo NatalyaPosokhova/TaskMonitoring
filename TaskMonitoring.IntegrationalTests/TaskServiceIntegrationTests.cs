@@ -58,11 +58,11 @@ namespace TaskMonitoring.IntegrationalTests
 		}
 
 		[Test]
-		public async Task CreateNewTaskShouldBeSuccess()
+		public void CreateNewTaskShouldBeSuccess()
 		{
 			//arrange
 			//actual
-			var actTask = await _service.CreateTask(_userId, _task);
+			var actTask = _service.CreateTask(_userId, _task);
 			var expectedTask = Util<TaskDataAccessDTO,TaskDTO>.Map(_dataAccess.GetTaskById(actTask.Id));
 
 			//assert
@@ -70,14 +70,14 @@ namespace TaskMonitoring.IntegrationalTests
 		}
 
 		[Test]
-		public async Task AddCommentForExistedTaskShouldBeSuccess()
+		public void AddCommentForExistedTaskShouldBeSuccess()
 		{
 			//arrange
 			var comment = "comment2";
 
 			//actual
-			var actTask = await _service.CreateTask(_userId, _task);
-			await _service.AddComment(_userId, _task.Id, comment);
+			var actTask = _service.CreateTask(_userId, _task);
+			_service.AddComment(_userId, _task.Id, comment);
 
 			var actComments = _dataAccess.GetTaskById(actTask.Id).Comments;
 
@@ -93,12 +93,12 @@ namespace TaskMonitoring.IntegrationalTests
 
 			//actual
 			//assert
-			Assert.ThrowsAsync<Cards.BL.Exceptions.TaskNotFoundException>(() => _service.AddComment(_userId, 111, comment));
+			Assert.Throws<Cards.BL.Exceptions.TaskNotFoundException>(() => _service.AddComment(_userId, 111, comment));
 		}
 
 		[Test]
 		//[Ignore("Temporary off")]
-		public async Task UpdateTaskShouldBeSuccess()
+		public void UpdateTaskShouldBeSuccess()
 		{
 			//arrange
 			var updatedTask = new TaskDTO
@@ -111,8 +111,8 @@ namespace TaskMonitoring.IntegrationalTests
 			};
 
 			//actual
-			_ = await _service.CreateTask(_userId, _task);
-			await _service.UpdateTask(_userId, updatedTask);
+			_ = _service.CreateTask(_userId, _task);
+			_service.UpdateTask(_userId, updatedTask);
 
 			var expectedTask = Util<TaskDataAccessDTO, TaskDTO>.Map(_dataAccess.GetTaskById(_taskId));
 
@@ -121,12 +121,12 @@ namespace TaskMonitoring.IntegrationalTests
 		}
 
 		[Test]
-		public async Task DeleteTaskShouldBeSuccess()
+		public void DeleteTaskShouldBeSuccess()
 		{
 			//arrange
 			//actual
-			var actTask = await _service.CreateTask(_userId, _task);
-			await _service.DeleteTaskById(_userId, _taskId);
+			var actTask = _service.CreateTask(_userId, _task);
+			_service.DeleteTaskById(_userId, _taskId);
 
 			//assert
 			Assert.Throws<CannotGetTaskException>(() => _dataAccess.GetTaskById(_taskId), "Task with id 123 not found.");

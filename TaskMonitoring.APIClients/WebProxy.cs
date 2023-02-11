@@ -40,6 +40,7 @@ namespace TaskMonitoring.APIClients
 				var data = new StringContent(json, Encoding.UTF8, "application/json");
 
 				var response = await client.PostAsync(url, data);
+				response.EnsureSuccessStatusCode();
 				var content = await response.Content.ReadAsStringAsync();
 
 				return JsonConvert.DeserializeObject<TResponse>(content);

@@ -32,10 +32,10 @@ namespace TaskMonitoring.Cards.UnitTests
 		}
 
 		[TearDown]
-		public async Task ClearUserTasks()
+		public void ClearUserTasks()
 		{
-			var tasks = await _taskService.GetAllTasks(_userId);
-			tasks.ToList().ForEach(async task => await _taskService.DeleteTaskById(_userId, task.Id));
+			var tasks =_taskService.GetAllTasks(_userId);
+			tasks.ToList().ForEach(task => _taskService.DeleteTaskById(_userId, task.Id));
 		}
 
 		[Test]
@@ -44,7 +44,7 @@ namespace TaskMonitoring.Cards.UnitTests
 			//arrange
 			TaskDataAccessDTO expTaskDataAccess = new TaskDataAccessDTO
 			{ 
-				Comments =new List<string>{ "comment1" },
+				Comments =new List<string>{ "comment1"},
 				Summary = "summary",
 				Title = "title",
 				UserId = _userId
@@ -74,13 +74,14 @@ namespace TaskMonitoring.Cards.UnitTests
 		}
 
 		[Test]
-		public async Task DeleteTaskShouldBeSuccess()
+		public void DeleteTaskShouldBeSuccess()
 		{
 			//arrange
 			var taskId = 111;
+			_webAPIUsers.GetUserById(_userId).Returns<User>(new User());
 
 			//act
-			await _taskService.DeleteTaskById(_userId, taskId);
+			_taskService.DeleteTaskById(_userId, taskId);
 
 			//assert
 			_dataAccess.Received().DeleteTask(taskId);
@@ -93,21 +94,23 @@ namespace TaskMonitoring.Cards.UnitTests
 			int taskId = 77;
 			_dataAccess.When(x => x.DeleteTask(taskId))
 				.Do(x => {throw new CannotDeleteTaskException("");});
+			_webAPIUsers.GetUserById(_userId).Returns<User>(new User());
 
 			//act
 			//assert
-			Assert.Throws<BL.Exceptions.TaskNotFoundException>(async () => await _taskService.DeleteTaskById(_userId, taskId));
+			Assert.Throws<BL.Exceptions.TaskNotFoundException>(() => _taskService.DeleteTaskById(_userId, taskId));
 		}
 
 		[Test]
-		public async Task AddCommentToTaskShouldBeSuccessAsync()
+		public void AddCommentToTaskShouldBeSuccessAsync()
 		{
 			//arrange
 			long taskId = 123;
 			string comment2 = "comment2";
+			_webAPIUsers.GetUserById(_userId).Returns<User>(new User());
 
 			//act
-			await _taskService.AddComment(_userId, taskId, comment2);
+			_taskService.AddComment(_userId, taskId, comment2);
 
 			//assert
 			_dataAccess.Received().AddComment(taskId, comment2);
@@ -120,10 +123,46 @@ namespace TaskMonitoring.Cards.UnitTests
 			long taskId = 12;
 			_dataAccess.When(x => x.AddComment(taskId, "test"))
 				.Do(x => { throw new CannotAddCommentException(""); });
+			_webAPIUsers.GetUserById(_userId).Returns<User>(new User());
 
 			//act
 			//assert
-			Assert.Throws<BL.Exceptions.TaskNotFoundException>(async () => await _taskService.AddComment(_userId, taskId, "test"));
+			Assert.Throws<BL.Exceptions.TaskNotFoundException>(() =>  _taskService.AddComment(_userId, taskId, "test"));
+		}
+
+		[Test]
+		public async Task GetTaskByIdShouldBeSuccess()
+		{
+			//arrange
+			long taskId = 123;
+			var comment = "comment1";
+			var summary = "summary";
+			var title = "title";
+			TaskDataAccessDTO task = new TaskDataAccessDTO
+			{
+				Comments = new List<string> { comment },
+				UserId = _userId,
+				Summary = summary,
+				Title = title,
+				Id = taskId
+			};
+
+			TaskDTO expectedTask = new TaskDTO
+			{
+				Comments = new List<string> { comment },
+				UserId = _userId,
+				Summary = summary,
+				Title = title,
+				Id = taskId
+			};
+			_webAPIUsers.GetUserById(_userId).Returns<User>(new User());
+			_dataAccess.GetTaskById(taskId).Returns(task);
+
+			//act
+			var actTask = _taskService.GetTaskById(_userId, task.Id);
+
+			//assert
+			Assert.AreEqual(expectedTask, actTask);
 		}
 	}
 }

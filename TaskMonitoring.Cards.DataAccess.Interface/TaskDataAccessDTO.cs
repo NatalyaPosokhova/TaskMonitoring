@@ -24,11 +24,12 @@ namespace TaskMonitoring.Cards.DataAccess.Interface
 			else
 			{
 				TaskDataAccessDTO task = (TaskDataAccessDTO)obj;
-				var result =  (Id == task.Id) && 
+				var result = (Id == task.Id) && 
 					(Title == task.Title) && 
-					(Comments.All(c => task.Comments.Contains(c)) && 
-					(Comments.Count == task.Comments.Count) && 
-					(Summary == task.Summary));
+					//(Comments.All(c => task.Comments.Contains(c)) && 
+					//(Comments.Count == task.Comments.Count) && 
+					(Summary == task.Summary) &&
+					(UserId == task.UserId);
 				return result;
 			}
 		}

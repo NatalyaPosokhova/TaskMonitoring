@@ -23,12 +23,11 @@ namespace TaskMonitoring.Cards.BL
 			_webAPIUsers = webAPIUsers;
 		}
 
-		public async Task AddComment(long userId, long taskId, string comment)
+		public void AddComment(long userId, long taskId, string comment)
 		{
 			try
 			{
-				var user = await _webAPIUsers.GetUserById(userId);
-				if(user == null)
+				if(!CheckIfUserExists(userId, out var _))
 					throw new UserNotFoundException($"Пользователя с id = {userId} не существует.");
 
 				_data.AddComment(taskId, comment);
@@ -39,39 +38,33 @@ namespace TaskMonitoring.Cards.BL
 			}
 		}
 
-		public async Task<TaskDTO> CreateTask(long userId, TaskDTO task)
+		public TaskDTO CreateTask(long userId, TaskDTO task)
 		{
 			try
 			{
-				var user = await CheckIfUserExists(userId);
-				task.UserId = user.Id;
+				if(!CheckIfUserExists(userId, out var actualUser))
+					throw new UserNotFoundException($"Пользователя с id = {userId} не существует.");
+				task.UserId = actualUser.Id;
 				AddDefaultComment(task);
 
 				var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
 				var taskId = _data.AddTask(mappedTask);
 				task.Id = taskId;
 
-					return task;
+				return task;
 			}
 			catch(Exception ex)
 			{
 				throw new CannotCreateTaskException("Не удалось создать задачу.", ex);
 			}
-
 		}
 
-		private static void AddDefaultComment(TaskDTO task)
-		{
-			var comment = $"Задача создана {DateTime.Now}";
-			task.Comments ??= new List<string>();
-			task.Comments.Add(comment);
-		}
-
-		public async Task DeleteTaskById(long userId, long taskId)
+		public void DeleteTaskById(long userId, long taskId)
 		{
 			try
 			{
-				await CheckIfUserExists(userId);
+				if(!CheckIfUserExists(userId, out var _))
+					throw new UserNotFoundException($"Пользователя с id = {userId} не существует.");
 				_data?.DeleteTask(taskId);
 			}
 			catch (CannotDeleteTaskException ex)
@@ -80,11 +73,13 @@ namespace TaskMonitoring.Cards.BL
 			}
 		}
 
-		public async Task<IEnumerable<TaskDTO>> GetAllTasks(long userId)
+		public IEnumerable<TaskDTO> GetAllTasks(long userId)
 		{
 			try
 			{
-				await CheckIfUserExists(userId);
+				if(!CheckIfUserExists(userId, out var _))
+					throw new UserNotFoundException($"Пользователя с id = {userId} не существует.");
+
 				return _data?.GetAllTasksByUserId(userId)?.Select(task => Util<TaskDataAccessDTO, TaskDTO>.Map(task));
 			}
 			catch(Exception ex)
@@ -93,11 +88,13 @@ namespace TaskMonitoring.Cards.BL
 			}
 		}
 
-		public async Task UpdateTask(long userId, TaskDTO task)
+		public void UpdateTask(long userId, TaskDTO task)
 		{
 			try
 			{
-				await CheckIfUserExists(userId);
+				if(!CheckIfUserExists(userId, out var _))
+					throw new UserNotFoundException($"Пользователя с id = {userId} не существует.");
+
 				var mappedTask = Util<TaskDTO, TaskDataAccessDTO>.Map(task);
 				_data.UpdateTask(mappedTask);
 			}
@@ -106,14 +103,38 @@ namespace TaskMonitoring.Cards.BL
 				throw new Exceptions.CannotUpdateTaskException(ex.Message, ex);
 			}
 		}
+		public TaskDTO GetTaskById(long userId, long taskId)
+		{
+			try
+			{
+				if(!CheckIfUserExists(userId, out var _))
+					throw new UserNotFoundException($"Пользователя с id = {userId} не существует.");
 
-		private async Task<APIClients.Users.Interfaces.DTO.User> CheckIfUserExists(long userId)
-		{			
-			var user = await _webAPIUsers.GetUserById(userId);
-			if(user == null)
-				throw new UserNotFoundException($"Пользователя с id = {userId} не существует.");
-
-			return user;
+				var task = _data.GetTaskById(taskId);
+				return Util<TaskDataAccessDTO, TaskDTO>.Map(task);
+			}
+			catch(Exception ex)
+			{
+				throw new Exceptions.CannotGetTaskByIdException(ex.Message, ex);
+			}
 		}
+
+		private bool CheckIfUserExists(long userId, out UserDTO actualUser)
+		{
+			actualUser = default;
+			var user = _webAPIUsers.GetUserById(userId).Result;
+			if(user == null)
+				return false;
+
+			actualUser = Util<APIClients.Users.Interfaces.DTO.User, UserDTO>.Map(user);
+			return true;
+		}
+		private static void AddDefaultComment(TaskDTO task)
+		{
+			var comment = $"Задача создана {DateTime.Now}";
+			task.Comments ??= new List<string>();
+			task.Comments.Add(comment);
+		}
+
 	}
 }

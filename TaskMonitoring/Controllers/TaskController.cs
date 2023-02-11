@@ -20,7 +20,7 @@ namespace TaskMonitoring.Cards.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CreateTask(long userId, NewTaskCard task)
+		public IActionResult CreateTask(long userId, NewTaskCard task)
 		{
 			try
 			{ 
@@ -29,7 +29,7 @@ namespace TaskMonitoring.Cards.Controllers
 					return new StatusCodeResult(422);
 				}
 				var mappedTask = Util<NewTaskCard, TaskDTO>.Map(task);
-				var createdTask = await _taskService.CreateTask(userId, mappedTask);
+				var createdTask = _taskService.CreateTask(userId, mappedTask);
 
 				return new ObjectResult(createdTask);
 			}
