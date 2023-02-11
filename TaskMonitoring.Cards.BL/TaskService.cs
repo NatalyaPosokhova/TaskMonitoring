@@ -32,7 +32,7 @@ namespace TaskMonitoring.Cards.BL
 
 				_data.AddComment(taskId, comment);
 			}
-			catch (CannotAddCommentException ex)
+			catch (Exceptions.CannotAddCommentException ex)
 			{
 				throw new Exceptions.TaskNotFoundException("Task is absent in database.", ex);
 			}
@@ -67,7 +67,7 @@ namespace TaskMonitoring.Cards.BL
 					throw new UserNotFoundException($"Пользователя с id = {userId} не существует.");
 				_data?.DeleteTask(taskId);
 			}
-			catch (CannotDeleteTaskException ex)
+			catch (Exceptions.CannotDeleteTaskException ex)
 			{
 				throw new Exceptions.TaskNotFoundException("Task is absent in database.", ex);
 			}

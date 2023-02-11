@@ -93,7 +93,7 @@ namespace TaskMonitoring.Cards.UnitTests
 			//arrange
 			int taskId = 77;
 			_dataAccess.When(x => x.DeleteTask(taskId))
-				.Do(x => {throw new CannotDeleteTaskException("");});
+				.Do(x => {throw new DataAccess.Interface.Exceptions.CannotDeleteTaskException("");});
 			_webAPIUsers.GetUserById(_userId).Returns<User>(new User());
 
 			//act
@@ -122,7 +122,7 @@ namespace TaskMonitoring.Cards.UnitTests
 			//arrange
 			long taskId = 12;
 			_dataAccess.When(x => x.AddComment(taskId, "test"))
-				.Do(x => { throw new CannotAddCommentException(""); });
+				.Do(x => { throw new DataAccess.Interface.Exceptions.CannotAddCommentException(""); });
 			_webAPIUsers.GetUserById(_userId).Returns<User>(new User());
 
 			//act
@@ -164,5 +164,6 @@ namespace TaskMonitoring.Cards.UnitTests
 			//assert
 			Assert.AreEqual(expectedTask, actTask);
 		}
+
 	}
 }
