@@ -8,7 +8,7 @@ namespace TaskMonitoring.APIClients
 {
 	public class WebProxyException : Exception
 	{
-		public WebProxyException(Exception ex = null) : base(ex.Message, ex)
+		public WebProxyException(Exception ex = null) : base(null, ex)
 		{
 
 		}

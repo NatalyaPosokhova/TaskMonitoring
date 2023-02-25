@@ -8,7 +8,7 @@ namespace TaskMonitoring.Timing.BL.Interface
 {
 	public interface ITimingService
 	{
-		public void LaunchTimer(long userId, long taskId);
+		public void LaunchTimer(long userId, long taskId, DateTime startTime);
 		public TimeSpan StopTimer(long userId, long taskId);
 		public IDictionary<long, IEnumerable<TimeSpan>> GetReport(long userId, IEnumerable<long> tasks);
 	}
