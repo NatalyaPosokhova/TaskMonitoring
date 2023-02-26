@@ -11,5 +11,7 @@ namespace TaskMonitoring.Timing.DataAccess.Interface
 		void PutStartTaskTime(long userId, long taskId, DateTime startTime);
 
 		void PutStopTaskTime(long userId, long taskId, DateTime stopTime);
+
+		DateTime? GetStartTimeForTask(long userId, long taskId);
 	}
 }
