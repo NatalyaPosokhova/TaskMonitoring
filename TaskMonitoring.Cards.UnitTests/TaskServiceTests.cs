@@ -1,14 +1,11 @@
 ﻿using NUnit.Framework;
 using TaskMonitoring.Cards.BL.Interface;
 using TaskMonitoring.Cards.BL;
-using TaskMonitoring.Cards.BL.Exceptions;
-using TaskMonitoring.Cards.BL.Interface.Enums;
 using TaskMonitoring.Cards.BL.Interface.DTO;
 using System.Linq;
 using System.Collections.Generic;
 using TaskMonitoring.Cards.DataAccess.Interface;
 using NSubstitute;
-using TaskMonitoring.Cards.DataAccess.Interface.Exceptions;
 using TaskMonitoring.APIClients.Users.Interfaces;
 using TaskMonitoring.APIClients.Users.Interfaces.DTO;
 using System.Threading.Tasks;

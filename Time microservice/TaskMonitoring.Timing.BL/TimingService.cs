@@ -18,12 +18,13 @@ namespace TaskMonitoring.Timing.BL
 			_dataAccess = dataAccess;
 			_tasksProxy = tasksProxy;
 		}
+
 		public IDictionary<long, IEnumerable<TimeSpan>> GetReport(long userId, IEnumerable<long> tasks)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void LaunchTimer(long userId, long taskId)
+		public void LaunchTimer(long userId, long taskId, DateTime startTime)
 		{
 			throw new NotImplementedException();
 		}
